@@ -71,6 +71,13 @@ a {
 
 }
 
+.titlex {  font-size: 9.5rem;
+  font-weight: bold;
+  justify-content: center;
+  display: flex;
+
+}
+
 .nav-content {
   display: flex;
   align-items: center;
@@ -243,6 +250,12 @@ a {
 
 .progress h2 {
   font-size: 2rem;
+  text-align: center;
+  margin: 0 0 24px;
+}
+
+.progress p {
+  font-size: 3rem;
   text-align: center;
   margin: 0 0 24px;
 }
