@@ -204,16 +204,37 @@ a {
 }
 
 .info-card {
-  background: #fff;
+  /* background: #fff;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); */
   padding: 24px;
-  transition: transform 240ms ease, box-shadow 240ms ease;
+  opacity: 0;
+  transform: scale(0);
+  transition: transform 240ms ease, opacity 240ms ease, box-shadow 240ms ease;
+  will-change: opacity, transform;
+  animation: ZoomInOut 0.6s ease-out forwards;
 }
 
 .info-card:hover {
-  transform: translateY(-6px) scale(1.02);
+  border-radius: 20px;
+  padding: 24px;
+  transform: translateY(-6px) scale(3.02);
   box-shadow: 0 18px 35px rgba(0, 0, 0, 0.14);
+}
+
+@keyframes ZoomInOut {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Progress section */
