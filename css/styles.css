@@ -616,6 +616,7 @@ a {
 
 .footer-wrapper {
   position: relative;
+  width: 100%;
 }
 
 .floating-dog {
@@ -650,9 +651,7 @@ a {
 }
 
 .site-footer .footer-content {
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
+ 
   flex-direction: column;
   gap: 8px;
   align-items: center;
@@ -669,3 +668,10 @@ a {
 }
 
 
+/* .footer {
+  width: 100%;
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+} */
