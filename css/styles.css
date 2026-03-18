@@ -595,20 +595,37 @@ a {
   position: absolute;
   width: 10%;
   height: 80%;
-  bottom: 165px;   /* footer ke upar adjust karo */
-  left: 20px;     /* left/right jahan chahiye */
+  bottom: 165px;   
+  left: 20px;     
   z-index: 2;
 }
 
-.floating-dog1 {
+.floating-dog2 {
   position: absolute;
   width: 20%;
-  height: 140%;
-  bottom: 65%;   /* footer ke upar adjust karo */
-  left: 5%;     /* left/right jahan chahiye */
+  height: 150%;
+  bottom: 62%;   
+  left: 5%;     
   z-index: 2;
 }
 
+.floating-dog3 {
+  position: absolute;
+  width: 20%;
+  height: 150%;
+  bottom: 62%;   
+  left: 70%;     
+  z-index: 2;
+}
+
+.floating-dog4 {
+  position: absolute;
+  width: 12%;
+  height: 120%;
+  bottom: 88%;   
+  left: 5%;     
+  z-index: 2;
+}
 .site-footer {
   position: relative;
   z-index: 1;
