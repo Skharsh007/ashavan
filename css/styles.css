@@ -329,6 +329,65 @@ a {
   line-height: 1.2;
 }
 
+
+/* final animation */
+@keyframes zoomSpark {
+  0% {
+    transform: scale(1);
+    text-shadow: none;
+  }
+  30% {
+    transform: scale(1.4);
+    text-shadow: 0 0 10px #fff, 0 0 20px #6bbf2b, 0 0 30px #6bbf2b;
+  }
+  60% {
+    transform: scale(1.2);
+    text-shadow: 0 0 8px #fff, 0 0 18px #6bbf2b;
+  }
+  100% {
+    transform: scale(1.1);
+    text-shadow: 0 0 6px #6bbf2b;
+  }
+}
+
+.final-effect {
+  animation: zoomSpark 1s ease-in-out infinite alternate;
+  font-weight: 800;
+}
+
+/* stop animation after 7s */
+.final-stop {
+  animation: none;
+  transform: scale(1.1);
+  font-weight: 800;
+}
+
+
+/* hidden before scroll */
+.progress-card {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.6s ease;
+}
+
+/* when visible */
+.progress-card.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* number pop effect */
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+.counter-animate {
+  animation: pop 0.3s ease;
+}
+
+
 .info-card:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 18px 35px rgba(0, 0, 0, 0.14);
@@ -569,4 +628,5 @@ a {
   margin: 0 8px;
   color: rgba(0, 0, 0, 0.4);
 }
+
 

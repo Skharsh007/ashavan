@@ -231,12 +231,20 @@
 
       <div class="progress-card">
         <img class="progress-pic" src="image2.png" alt="Dogs adopted" />
-        <div class="progress-text">180+<br>dogs adopted, 310 released</div>
+        <!-- <div class="progress-text">180+<br>dogs adopted, 310 released</div> -->
+        <div class="progress-text">
+  <span id="dogsCounter">170</span>+<br>
+  dogs adopted, 310 released
+</div>
       </div>
 
       <div class="progress-card">
         <img class="progress-pic" src="image3.png" alt="Food drives" />
         <div class="progress-text">200+ Food Drives</div>
+          <div class="progress-text">
+  <span id="dogsCounter">190</span>+<br>
+
+</div>
       </div>
 
       <div class="progress-card">
@@ -259,6 +267,65 @@
     </p>
   </div>
 </footer>
+
+
+
+
+<script>
+  const card = document.querySelector(".progress-card:nth-child(2)");
+  const counter = document.getElementById("dogsCounter");
+  const text = document.getElementById("dogsText");
+
+  let started = false;
+
+  function startCounter() {
+    let start = 170;
+    let end = 180;
+    let duration = 2000;
+
+    let startTime = null;
+
+    function animate(timestamp) {
+      if (!startTime) startTime = timestamp;
+
+      let progress = timestamp - startTime;
+      let percent = Math.min(progress / duration, 1);
+
+      let value = Math.floor(start + (end - start) * percent);
+      counter.textContent = value;
+
+      if (percent < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        counter.textContent = end;
+
+        // 🎉 FINAL EFFECT START
+        text.classList.add("final-effect");
+
+        // ⏱ stop after 7 seconds
+        setTimeout(() => {
+          text.classList.remove("final-effect");
+          text.classList.add("final-stop");
+        }, 7000);
+      }
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !started) {
+        card.classList.add("show");
+        startCounter();
+        started = true;
+      }
+    });
+  }, { threshold: 0.4 });
+
+  observer.observe(card);
+</script>
+
 
 
 
