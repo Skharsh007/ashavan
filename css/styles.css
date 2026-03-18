@@ -614,6 +614,33 @@ a {
   }
 }
 
+.footer-wrapper {
+  position: relative;
+}
+
+.floating-dog {
+  position: absolute;
+  width: 10%;
+  height: 80%;
+  bottom: 165px;   /* footer ke upar adjust karo */
+  left: 20px;     /* left/right jahan chahiye */
+  z-index: 2;
+}
+
+.floating-dog1 {
+  position: absolute;
+  width: 20%;
+  height: 140%;
+  bottom: 65%;   /* footer ke upar adjust karo */
+  left: 5%;     /* left/right jahan chahiye */
+  z-index: 2;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
 .site-footer {
   background: #fae3c9;
   padding: 20px 16px;
