@@ -65,17 +65,18 @@
   <div class="dots" aria-label="Slide navigation"></div>
 
   <script>
-    const galleryImages = [
-      { src: '1.jpeg', alt: 'Dogs eating on street' },
-      { src: '2.jpeg', alt: 'Feeding dogs' },
-      { src: '3.jpeg', alt: 'Dog drinking water' },
-      { src: '4.jpeg', alt: 'Dog getting help' },
-      { src: '5.jpeg', alt: 'Dog getting help' },
-      { src: '6.jpeg', alt: 'Dog getting help' },
-      { src: '7.jpeg', alt: 'Dog getting help' },
-      { src: '8.jpeg', alt: 'Dog getting help' },
-      { src: '9.jpeg', alt: 'Dog getting help' }
-    ];
+    document.addEventListener('DOMContentLoaded', () => {
+      const galleryImages = [
+        { src: '1.jpeg', alt: 'Dogs eating on street' },
+        { src: '2.jpeg', alt: 'Feeding dogs' },
+        { src: '3.jpeg', alt: 'Dog drinking water' },
+        { src: '4.jpeg', alt: 'Dog getting help' },
+        { src: '5.jpeg', alt: 'Dog getting help' },
+        { src: '6.jpeg', alt: 'Dog getting help' },
+        { src: '7.jpeg', alt: 'Dog getting help' },
+        { src: '8.jpeg', alt: 'Dog getting help' },
+        { src: '9.jpeg', alt: 'Dog getting help' }
+      ];
 
     const galleryElement = document.getElementById('gallery');
 
@@ -185,6 +186,23 @@
     window.addEventListener('resize', () => {
       slideWidth = galleryElement.clientWidth;
       scrollToSlide(slideIndex);
+    });
+
+    // Zoom cards when they come into view.
+    const infoCards = document.querySelectorAll('.info-card');
+    const cardObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('info-card--visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    infoCards.forEach((card) => cardObserver.observe(card));
     });
   </script>
   <section class="info-grid" aria-label="What we believe and our mission">
