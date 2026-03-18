@@ -203,6 +203,47 @@
     );
 
     infoCards.forEach((card) => cardObserver.observe(card));
+
+    // Progress cards: reveal + count-up when visible
+    const progressCards = document.querySelectorAll('.progress-card');
+    const progressObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const card = entry.target;
+          card.classList.add('show');
+
+          const counterEl = card.querySelector('.progress-value');
+          if (counterEl) {
+            const target = parseInt(counterEl.dataset.target || '0', 10);
+            animateCounter(counterEl, target);
+          }
+
+          observer.unobserve(card);
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    progressCards.forEach((card) => progressObserver.observe(card));
+
+    function animateCounter(el, target) {
+      const duration = 1200;
+      const startTime = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const value = Math.floor(progress * target);
+        el.textContent = value.toLocaleString();
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target.toLocaleString();
+        }
+      };
+
+      requestAnimationFrame(step);
+    }
     });
   </script>
   <section class="info-grid" aria-label="What we believe and our mission">
@@ -226,30 +267,34 @@
     <div class="progress-container">
       <div class="progress-card">
         <img class="progress-pic" src="image1.png" alt="Saved animals" />
-        <div class="progress-text">10,000+<br>saved animals</div>
+        <div class="progress-text">
+          <span class="progress-value" data-target="10000">0</span><span class="progress-suffix">+</span><br>
+          saved animals
+        </div>
       </div>
 
       <div class="progress-card">
         <img class="progress-pic" src="image2.png" alt="Dogs adopted" />
-        <!-- <div class="progress-text">180+<br>dogs adopted, 310 released</div> -->
         <div class="progress-text">
-  <span id="dogsCounter">170</span>+<br>
-  dogs adopted, 310 released
-</div>
+          <span class="progress-value" data-target="180">0</span><span class="progress-suffix">+</span><br>
+          dogs adopted, 310 released
+        </div>
       </div>
 
       <div class="progress-card">
         <img class="progress-pic" src="image3.png" alt="Food drives" />
-        <div class="progress-text">200+ Food Drives</div>
-          <div class="progress-text">
-  <span id="dogsCounter">190</span>+<br>
-
-</div>
+        <div class="progress-text">
+          <span class="progress-value" data-target="200">0</span><span class="progress-suffix">+</span><br>
+          Food Drives
+        </div>
       </div>
 
       <div class="progress-card">
         <img class="progress-pic" src="image4.png" alt="Vaccinated street dogs" />
-        <div class="progress-text">100+ street dogs<br>rabies vaccinated</div>
+        <div class="progress-text">
+          <span class="progress-value" data-target="100">0</span><span class="progress-suffix">+</span><br>
+          street dogs rabies vaccinated
+        </div>
       </div>
     </div>
   </section>
@@ -267,67 +312,6 @@
     </p>
   </div>
 </footer>
-
-
-
-
-<script>
-  const card = document.querySelector(".progress-card:nth-child(2)");
-  const counter = document.getElementById("dogsCounter");
-  const text = document.getElementById("dogsText");
-
-  let started = false;
-
-  function startCounter() {
-    let start = 170;
-    let end = 180;
-    let duration = 2000;
-
-    let startTime = null;
-
-    function animate(timestamp) {
-      if (!startTime) startTime = timestamp;
-
-      let progress = timestamp - startTime;
-      let percent = Math.min(progress / duration, 1);
-
-      let value = Math.floor(start + (end - start) * percent);
-      counter.textContent = value;
-
-      if (percent < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        counter.textContent = end;
-
-        // 🎉 FINAL EFFECT START
-        text.classList.add("final-effect");
-
-        // ⏱ stop after 7 seconds
-        setTimeout(() => {
-          text.classList.remove("final-effect");
-          text.classList.add("final-stop");
-        }, 7000);
-      }
-    }
-
-    requestAnimationFrame(animate);
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !started) {
-        card.classList.add("show");
-        startCounter();
-        started = true;
-      }
-    });
-  }, { threshold: 0.4 });
-
-  observer.observe(card);
-</script>
-
-
-
 
 
 
