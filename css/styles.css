@@ -25,7 +25,7 @@
 }
 
 div {
-  margin: 10px;
+  /* margin: 10px; */
   font-size: 18px;
 }
 
@@ -481,7 +481,7 @@ a {
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.25);
   cursor: pointer;
-  transition: background 150ms ease;
+  /* transition: background 150ms ease; */
 }
 
 .dot.active {
@@ -535,35 +535,7 @@ a {
   border-radius: 4px;
 }
 
-/* Bottom navigation (mobile) */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #fae3c9;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
-  display: none;
-  justify-content: space-around;
-  align-items: center;
-  padding: 8px 0;
-  z-index: 15;
-}
 
-.bottom-nav__link {
-  color: #222;
-  font-size: 0.9rem;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
-}
-
-.bottom-nav__link span {
-  font-size: 0.75rem;
-}
 
 /* Responsive behavior */
 @media (max-width: 768px) {
