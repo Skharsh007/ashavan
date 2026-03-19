@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashavan</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/about_styles.css">
+  <!-- Link Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div id="header"></div>
+
+<main class="page-content">
+
+    <h1 class="abouttxt" style="margin-top: 40px;">About Us</h1>
+   
+<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto;">
+
+  <p>"Ashavan is more than just an initiative—it is a movement built on compassion, responsibility, and the belief that every life deserves care and dignity. While animal rescue and rehabilitation remain an important part of our work, Ashavan goes far beyond saving lives on the streets. At its core, Ashavan is dedicated to transforming mindsets—encouraging every individual to learn, practice, and live with compassion and kindness in their daily lives. We believe true change begins within people, and when empathy becomes a habit, it naturally extends to animals, society, and the world around us.
+What makes Ashavan truly unique is its broader vision. Alongside helping injured and abandoned animals, we actively promote awareness about nature, the ecosystem, and the importance of sustainable living. We strive to create a balance where humans and nature coexist with respect and responsibility. Whether it is rescuing an animal in need, inspiring someone to care, or encouraging eco-friendly choices, every action we take is a step toward a more humane and sustainable future.
+Ashavan is also a growing community of individuals who choose kindness in a world that often overlooks it. From late-night rescue efforts to educating people about compassion, our journey is driven by purpose rather than convenience. Over time, Ashavan has touched countless lives—not only animals, but also people who have rediscovered humanity through its mission.
+Here, every rescue has a story, every voice matters, and every act of kindness creates a ripple effect. Ashavan is not just about helping animals—it is about building a world where compassion, respect for nature, and sustainable living become a way of life."</p>
+</div>
+
+ 
+</main>
+
+<main class="page-content">
+
+    <h1 class="abouttxt" style="margin-top: 40px;">Our Belief</h1>
+   
+<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto;">
+
+  <p>"We believe that every street animal, no matter how small, weak, or unnoticed, deserves love, care, and respect. These animals share our environment and our communities, yet they often struggle silently without a voice to express their pain, hunger, or fear. They rely entirely on human kindness for their survival, safety, and well-being. It is our responsibility as compassionate beings to recognize their needs and respond with empathy and action.
+
+Our core belief is that compassion towards animals is a reflection of the values of a truly humane society. When we choose to care for the most vulnerable among us, we create a world that is kinder, more understanding, and more connected. By rescuing injured and abandoned animals, providing them with timely medical care, shelter, and nourishment, and promoting adoption over neglect, we aim to transform their lives from suffering to safety and from fear to trust.
+
+We understand that change does not always come from grand gestures alone, but from consistent, small acts of kindness carried out by individuals who care. Feeding a hungry animal, helping an injured one, spreading awareness, or simply choosing not to harm — each action contributes to a larger movement of compassion.
+
+Together, with the support and involvement of our community, we can build a future where street animals are no longer ignored or mistreated, but are protected, valued, and given the opportunity to live healthy and dignified lives. By standing together, we can make a meaningful and lasting difference, ensuring that every street animal experiences the care and respect they truly deserve."</p>
+</div>
+
+ 
+</main>
+
+
+<p style="margin-bottom: 150px; color: white;">This is text</p>
+
+<div id="footer"></div>
+
+
+
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
+
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+
+      // IMPORTANT: reattach navbar JS after loading
+      initNavbar();
+    });
+
+
+  function initNavbar() {
+    const toggle = document.querySelector('.nav-toggle');
+    const sidenav = document.getElementById('mySidenav');
+    const closeBtn = document.querySelector('.closebtn');
+    const overlay = document.querySelector('.nav-overlay');
+
+    function openNav() {
+      sidenav.classList.add('open');
+      overlay.classList.add('visible');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeNav() {
+      sidenav.classList.remove('open');
+      overlay.classList.remove('visible');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', openNav);
+    closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+  }
+</script>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const sidenav = document.getElementById('mySidenav');
+  const closeBtn = document.querySelector('.closebtn');
+  const overlay = document.querySelector('.nav-overlay');
+
+  function openNav() {
+    sidenav.classList.add('open');
+    overlay.classList.add('visible');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeNav() {
+    sidenav.classList.remove('open');
+    overlay.classList.remove('visible');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', openNav);
+  closeBtn.addEventListener('click', closeNav);
+  overlay.addEventListener('click', closeNav);
+</script>
+
+</body>
+</html>

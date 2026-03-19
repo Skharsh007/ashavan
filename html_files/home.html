@@ -10,40 +10,7 @@
 </head>
 
 <body>
-
-<header class="site-header">
-  <nav class="main-nav" aria-label="Main Navigation">
-    <div class="nav-content">
-      <img src="ashavan_logo.png" class="logo" alt="Ashavan logo" style="width: 140px; height: 180px;">
-
-      <ul class="nav-links" role="menubar">
-        <li role="none"><a role="menuitem" href="#">Home</a></li>
-        <li role="none"><a role="menuitem" href="#">About Us</a></li>
-        <li role="none"><a role="menuitem" href="#">Blogs</a></li>
-        <li role="none"><a role="menuitem" href="#">Our Work</a></li>
-        <li role="none"><a role="menuitem" href="#">Get Involved</a></li>
-        <li role="none"><a role="menuitem" href="#">Donate</a></li>
-      </ul>
-
-      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-        <span class="nav-toggle-line"></span>
-        <span class="nav-toggle-line"></span>
-        <span class="nav-toggle-line"></span>
-      </button>
-
-      <div id="mySidenav" class="sidenav" aria-label="Side navigation">
-        <button class="closebtn" aria-label="Close menu">&times;</button>
-        <a href="#">Home</a>
-        <a href="#">About Us</a>
-        <a href="#">Blogs</a>
-        <a href="#">Our Work</a>
-        <a href="#">Get Involved</a>
-        <a href="#">Donate</a>
-      </div>
-    </div>
-  </nav>
-  <div class="nav-overlay" aria-hidden="true"></div>
-</header>
+<div id="header"></div>
 
 <main class="page-content">
    
@@ -300,28 +267,52 @@
   </section>
 </main>
 
-<div class="footer-wrapper">
-  <!-- <img src="dog.png" class="floating-dog" alt="Dog image"> -->
-  <img src="dog2.png" class="floating-dog3" alt="Dog image">
-  <img src="dog5a.png" class="floating-dog4" alt="Dog image">
-  <!-- <img src="dog4.png" class="floating-dog" alt="Dog image"> -->
-
-  <footer class="site-footer">
-    <div class="footer-content">
-      <p>© 2026 Ashavan. All rights reserved.</p>
-      <p>
-        <a href="#">Privacy</a>
-        <span class="footer-divider">•</span>
-        <a href="#">Terms</a>
-        <span class="footer-divider">•</span>
-        <a href="#">Contact</a>
-      </p>
-    </div>
-  </footer>
-</div>
+<div id="footer"></div>
 
 
 
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
+
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+
+      // IMPORTANT: reattach navbar JS after loading
+      initNavbar();
+    });
+
+
+  function initNavbar() {
+    const toggle = document.querySelector('.nav-toggle');
+    const sidenav = document.getElementById('mySidenav');
+    const closeBtn = document.querySelector('.closebtn');
+    const overlay = document.querySelector('.nav-overlay');
+
+    function openNav() {
+      sidenav.classList.add('open');
+      overlay.classList.add('visible');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeNav() {
+      sidenav.classList.remove('open');
+      overlay.classList.remove('visible');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', openNav);
+    closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+  }
+</script>
 
 <script>
   const toggle = document.querySelector('.nav-toggle');
