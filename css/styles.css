@@ -421,17 +421,20 @@ a {
 .slider {
   position: relative;
   width: 100%;
+  height: 120;
   overflow: hidden;
 }
 
 .gallery {
   display: flex;
-  width: 100%;
+  /* width: 100%;
+  height: 150%; */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 }
 
+/* Default = Mobile */
 .gallery img {
   flex: 0 0 100%;
   width: 100%;
@@ -439,6 +442,14 @@ a {
   border-radius: 10px;
   object-fit: cover;
   scroll-snap-align: center;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .gallery img {
+    width: 90%;
+    height: 80vh;
+  }
 }
 
 .prev,
