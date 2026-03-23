@@ -61,6 +61,8 @@ body {
 
   <!-- ── Your custom dropdown ── -->
   <div class="lang-switcher">
+    <span>Select language : &nbsp;</span>
+
     <select id="lang-select" class="lang-select" aria-label="Select language">
       <option value="en">🌐 English</option>
       <option value="hi">🌐 हिन्दी</option>
@@ -87,7 +89,7 @@ body {
   <script>
    document.addEventListener('DOMContentLoaded', () => {
     const mobileImages = [
-      { src: '1.jpg',  alt: 'Dogs eating on street' },
+      { src: '1.jpeg',  alt: 'Dogs eating on street' },
       { src: '2.jpeg', alt: 'Feeding dogs' },
       { src: '3.jpeg', alt: 'Dog drinking water' },
       { src: '4.jpeg', alt: 'Dog getting help' },
@@ -302,7 +304,7 @@ body {
 <!-- 2. Dropdown triggers Google Translate's hidden combo -->
 
 <script>
-  // var lastLang = 'en';
+  var lastLang = 'en';
 
 function triggerGoogleTranslate(lang) {
   const gtCombo = document.querySelector('.goog-te-combo');
