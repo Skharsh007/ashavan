@@ -9,13 +9,16 @@
 
   <style>
     /* Hide Google Translate's injected toolbar/banner */
-    .goog-te-banner-frame,
-    .skiptranslate {
-      display: none !important;
-    }
-    body {
-      top: 0 !important;
-    }
+   /* Prevent GT from pushing page down */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+  height: 0 !important;
+}
+body {
+  top: 0 !important;
+  position: static !important;
+}
 
     /* ── Language Switcher ── */
     .lang-switcher {
@@ -206,7 +209,7 @@
           if (!e.isIntersecting) return;
           card.classList.add('show');
           const counterEl = card.querySelector('.progress-value');
-          if (counterEl) animateCounter(counterEl, parseInt(counterEl.dataset.target || '0', 10));
+          if (counterEl) animateCounter(counterEl, parseInt((counterEl.dataset.target || '0').trim(), 10));
           obs.unobserve(card);
         });
       }, { threshold: 0.3 }).observe(card);
@@ -256,7 +259,7 @@
       <div class="progress-card">
         <img class="progress-pic" src="image1.png" alt="Saved animals" />
         <div class="progress-text">
-          <span class="progress-value" data-target="10000">0</span><span class="progress-suffix">+</span><br>saved animals
+          <span class="progress-value" data-target="10000  ">0</span><span class="progress-suffix">+</span><br>  saved animals
         </div>
       </div>
       <div class="progress-card">
@@ -297,22 +300,33 @@
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <!-- 2. Dropdown triggers Google Translate's hidden combo -->
+
 <script>
-  function triggerGoogleTranslate(lang) {
-    // Google Translate injects a <select class="goog-te-combo"> into the hidden widget
-    const gtCombo = document.querySelector('.goog-te-combo');
-    if (gtCombo) {
-      gtCombo.value = lang;
-      gtCombo.dispatchEvent(new Event('change'));
-    } else {
-      // GT may not have initialised yet — retry after a short delay
-      setTimeout(() => triggerGoogleTranslate(lang), 500);
-    }
+  var lastLang = 'en';
+
+function triggerGoogleTranslate(lang) {
+  const gtCombo = document.querySelector('.goog-te-combo');
+
+  if (!gtCombo) return;
+
+  if (lang === 'en') {
+    gtCombo.value = 'en';
+    gtCombo.dispatchEvent(new Event('change'));
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  } else {
+    gtCombo.value = lang;
+    gtCombo.dispatchEvent(new Event('change'));
   }
+}
+
 
   document.getElementById('lang-select').addEventListener('change', function () {
     triggerGoogleTranslate(this.value);
   });
+
 </script>
 
 <script>
