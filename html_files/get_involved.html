@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashavan</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/about_styles.css">
+  <!-- Link Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<div id="header"></div>
+
+
+<!-- Sponsor -->
+<main class="page-content">
+    <h1 class="abouttxt" style="margin-top: 40px;">Sponsor</h1>
+   
+<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto;">
+
+  <p>Some animals are destined to spend their lives at our centers as they cannot be released or adopted. You can help us take care of these lovely animals by contributing towards their upkeep. Please contact us to get details and discuss about these special animals.</p>
+</div>
+</main>
+
+
+<!-- Adopt -->
+<main class="page-content">
+    <h1 class="abouttxt" style="margin-top: 40px;">Adopt</h1>
+   
+<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto;">
+
+  <p>Our dogs and cats are looking for a home. Each would be a wonderful addition to a responsible, loving family. Please contact us and that can be the first step to a new life long friendship for you.</p>
+</div>
+</main>
+
+
+<!-- Volunteer -->
+<main class="page-content">
+    <h1 class="abouttxt" style="margin-top: 40px;">Volunteer</h1>
+   
+<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto;">
+
+  <p>Our work for animals is made possible by the kindness and dedication of volunteers who believe in compassion and care for all living beings. If you share this belief and would like to make a difference in the lives of animals, we would love to have you join us.
+Volunteers can support our initiatives in many ways—helping during adoption drives, assisting in feeding street animals, supporting rescue efforts, spreading awareness about compassionate living, or helping with events and community outreach.
+Whether you can contribute your time regularly or occasionally, every effort makes a meaningful difference for animals in need. By volunteering with us, you become part of a community that is working together to create a safer and more compassionate world for animals.
+If you would like to volunteer, please get in touch with us. Together, we can do so much more. 🐾
+</p>
+</div>
+</main>
+
+
+<p style="margin-bottom: 150px; color: white;">This is text</p>
+
+<div id="footer"></div>
+
+
+
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
+
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+
+      // IMPORTANT: reattach navbar JS after loading
+      initNavbar();
+    });
+
+
+  function initNavbar() {
+    const toggle = document.querySelector('.nav-toggle');
+    const sidenav = document.getElementById('mySidenav');
+    const closeBtn = document.querySelector('.closebtn');
+    const overlay = document.querySelector('.nav-overlay');
+
+    function openNav() {
+      sidenav.classList.add('open');
+      overlay.classList.add('visible');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeNav() {
+      sidenav.classList.remove('open');
+      overlay.classList.remove('visible');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', openNav);
+    closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+  }
+</script>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle');
+  const sidenav = document.getElementById('mySidenav');
+  const closeBtn = document.querySelector('.closebtn');
+  const overlay = document.querySelector('.nav-overlay');
+
+  function openNav() {
+    sidenav.classList.add('open');
+    overlay.classList.add('visible');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeNav() {
+    sidenav.classList.remove('open');
+    overlay.classList.remove('visible');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', openNav);
+  closeBtn.addEventListener('click', closeNav);
+  overlay.addEventListener('click', closeNav);
+</script>
+
+</body>
+</html>
