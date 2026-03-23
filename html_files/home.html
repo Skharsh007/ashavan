@@ -5,8 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ashavan</title>
   <link rel="stylesheet" href="../css/styles.css">
-  <!-- Link Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Hide Google Translate's injected toolbar/banner */
+    .goog-te-banner-frame,
+    .skiptranslate {
+      display: none !important;
+    }
+    body {
+      top: 0 !important;
+    }
+
+    /* ── Language Switcher ── */
+    .lang-switcher {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px 24px 0;
+    }
+
+    .lang-select {
+      font-family: 'PT Serif', serif;
+      font-size: 0.85rem;
+      padding: 5px 32px 5px 12px;
+      border: 1.5px solid #b5804a;
+      border-radius: 6px;
+      background-color: #fffdf8;
+      color: #3a2a15;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b5804a' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .lang-select:hover,
+    .lang-select:focus {
+      border-color: #8a5c2a;
+      box-shadow: 0 0 0 3px rgba(181,128,74,0.15);
+      outline: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -14,31 +56,25 @@
 
 <main class="page-content">
 
-  <div id="google_translate_element"></div>
+  <!-- ── Your custom dropdown ── -->
+  <div class="lang-switcher">
+    <select id="lang-select" class="lang-select" aria-label="Select language">
+      <option value="en">🌐 English</option>
+      <option value="hi">🌐 हिन्दी</option>
+    </select>
+  </div>
 
-<script type="text/javascript">
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    includedLanguages: 'en,hi',   // Only English and Hindi
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-  }, 'google_translate_element');
-}
-</script>
+  <!-- Google Translate mounts here but stays visually hidden -->
+  <div id="google_translate_element" style="display:none;"></div>
 
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-   
-<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto; padding: 20px;">
-  <p>"Ashavan — Forest of Hopes — is a compassionate animal welfare initiative dedicated to healing, and protecting street and abandoned animals while reconnecting humans with kindness and nature.</p>
-  <p>We believe that when animals feel safe, humanity becomes stronger.</p>
-  <p>Ashavan is not just an organization — it is a growing movement of compassion, responsibility, and conscious coexistence."</p>
-</div>
+  <div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto; padding: 20px;">
+    <p>"Ashavan — Forest of Hopes — is a compassionate animal welfare initiative dedicated to healing, and protecting street and abandoned animals while reconnecting humans with kindness and nature.</p>
+    <p>We believe that when animals feel safe, humanity becomes stronger.</p>
+    <p>Ashavan is not just an organization — it is a growing movement of compassion, responsibility, and conscious coexistence."</p>
+  </div>
 
   <div class="slider">
-    <section id="gallery" class="gallery" aria-label="Ashavan photo gallery">
-      <!-- Images generated dynamically by script -->
-    </section>
-
+    <section id="gallery" class="gallery" aria-label="Ashavan photo gallery"></section>
     <a class="prev" aria-label="Previous slide">&#10094;</a>
     <a class="next" aria-label="Next slide">&#10095;</a>
   </div>
@@ -47,306 +83,171 @@ function googleTranslateElementInit() {
 
   <script>
    document.addEventListener('DOMContentLoaded', () => {
-  const mobileImages = [
-    { src: '1.jpg', alt: 'Dogs eating on street' },
-    { src: '2.jpeg', alt: 'Feeding dogs' },
-    { src: '3.jpeg', alt: 'Dog drinking water' },
-    { src: '4.jpeg', alt: 'Dog getting help' },
-    { src: '5.jpeg', alt: 'Dog getting help' },
-    { src: '6.jpeg', alt: 'Dog getting help' },
-    { src: '7.jpeg', alt: 'Dog getting help' },
-    { src: '8.jpeg', alt: 'Dog getting help' },
-    { src: '9.jpeg', alt: 'Dog getting help' }
-  ];
+    const mobileImages = [
+      { src: '1.jpg',  alt: 'Dogs eating on street' },
+      { src: '2.jpeg', alt: 'Feeding dogs' },
+      { src: '3.jpeg', alt: 'Dog drinking water' },
+      { src: '4.jpeg', alt: 'Dog getting help' },
+      { src: '5.jpeg', alt: 'Dog getting help' },
+      { src: '6.jpeg', alt: 'Dog getting help' },
+      { src: '7.jpeg', alt: 'Dog getting help' },
+      { src: '8.jpeg', alt: 'Dog getting help' },
+      { src: '9.jpeg', alt: 'Dog getting help' }
+    ];
+    const desktopImages = [
+      { src: 'ad1.jpg' }, { src: 'ad2.jpg' }, { src: 'ad3.jpg' },
+      { src: 'ad4.jpg' }, { src: 'ad5.jpg' }
+    ];
 
-  const desktopImages = [
-    { src: 'ad1.jpg'},
-    { src: 'ad2.jpg'},
-    { src: 'ad3.jpg'},
-    { src: 'ad4.jpg'},
-    { src: 'ad5.jpg'},
+    const galleryElement = document.getElementById('gallery');
+    const dotsContainer  = document.querySelector('.dots');
+    const prevButton     = document.querySelector('.prev');
+    const nextButton     = document.querySelector('.next');
 
-  ];
+    let slideIndex = 0;
+    const slideIntervalMs = 7000;
+    let slideTimer;
+    let currentImages = [];
 
-  const galleryElement = document.getElementById('gallery');
-  const dotsContainer = document.querySelector('.dots');
-  const prevButton = document.querySelector('.prev');
-  const nextButton = document.querySelector('.next');
-  
-  let slideIndex = 0;
-  let slideIntervalMs = 7000;
-  let slideTimer;
-  let currentImages = [];
+    const getImagesForCurrentWidth = () => window.innerWidth <= 768 ? mobileImages : desktopImages;
 
-  // Function to determine which images to use
-  const getImagesForCurrentWidth = () => {
-    return window.innerWidth <= 768 ? mobileImages : desktopImages;
-  };
-
-  // Function to rebuild the gallery
-  const rebuildGallery = () => {
-    // Clear existing gallery content
-    galleryElement.innerHTML = '';
-    
-    // Get new images based on current window width
-    currentImages = getImagesForCurrentWidth();
-    
-    // Add new images to gallery
-    currentImages.forEach(({ src, alt }) => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = alt;
-      galleryElement.appendChild(img);
-    });
-    
-    // Reset slide index
-    slideIndex = 0;
-    
-    // Recreate dots
-    createDots();
-    updateDots();
-    
-    // Scroll to first slide
-    const slideWidth = galleryElement.clientWidth;
-    galleryElement.scrollTo({ left: 0, behavior: 'auto' });
-  };
-
-  const createDots = () => {
-    dotsContainer.innerHTML = '';
-    currentImages.forEach((_, idx) => {
-      const dot = document.createElement('span');
-      dot.className = 'dot';
-      dot.addEventListener('click', () => {
-        setSlide(idx);
+    const rebuildGallery = () => {
+      galleryElement.innerHTML = '';
+      currentImages = getImagesForCurrentWidth();
+      currentImages.forEach(({ src, alt = '' }) => {
+        const img = document.createElement('img');
+        img.src = src; img.alt = alt;
+        galleryElement.appendChild(img);
       });
-      dotsContainer.appendChild(dot);
-    });
-  };
-
-  const updateDots = () => {
-    const dots = dotsContainer.querySelectorAll('.dot');
-    dots.forEach((dot, idx) => {
-      dot.classList.toggle('active', idx === slideIndex);
-    });
-  };
-
-  const scrollToSlide = (index) => {
-    const slideWidth = galleryElement.clientWidth;
-    galleryElement.scrollTo({
-      left: index * slideWidth,
-      behavior: 'smooth'
-    });
-    updateDots();
-  };
-
-  const setSlide = (index) => {
-    slideIndex = (index + currentImages.length) % currentImages.length;
-    scrollToSlide(slideIndex);
-  };
-
-  const changeSlide = (delta) => {
-    setSlide(slideIndex + delta);
-  };
-
-  const nextSlide = () => changeSlide(1);
-  const prevSlide = () => changeSlide(-1);
-
-  const startSlideshow = () => {
-    if (slideTimer) clearInterval(slideTimer);
-    slideTimer = setInterval(nextSlide, slideIntervalMs);
-  };
-
-  // Handle window resize
-  let resizeTimeout;
-  window.addEventListener('resize', () => {
-    // Clear the timeout to prevent multiple rapid rebuilds
-    clearTimeout(resizeTimeout);
-    
-    // Debounce the resize event
-    resizeTimeout = setTimeout(() => {
-      const wasMobile = currentImages === mobileImages;
-      const isNowMobile = window.innerWidth <= 768;
-      
-      // Only rebuild if the image set actually needs to change
-      if (wasMobile !== isNowMobile) {
-        // Clear the slideshow timer temporarily
-        if (slideTimer) clearInterval(slideTimer);
-        
-        // Rebuild the gallery with appropriate images
-        rebuildGallery();
-        
-        // Restart slideshow
-        startSlideshow();
-      }
-    }, 250);
-  });
-
-  // Initialize the gallery
-  const initializeGallery = () => {
-    currentImages = getImagesForCurrentWidth();
-    
-    currentImages.forEach(({ src, alt }) => {
-      const img = document.createElement('img');
-      img.src = src;
-      img.alt = alt;
-      galleryElement.appendChild(img);
-    });
-    
-    createDots();
-    updateDots();
-    
-    const slideWidth = galleryElement.clientWidth;
-    galleryElement.scrollTo({ left: 0, behavior: 'auto' });
-  };
-
-  initializeGallery();
-  startSlideshow();
-
-  // Slideshow controls
-  galleryElement.addEventListener('mouseenter', () => clearInterval(slideTimer));
-  galleryElement.addEventListener('mouseleave', startSlideshow);
-
-  nextButton.addEventListener('click', () => {
-    clearInterval(slideTimer);
-    nextSlide();
-    startSlideshow();
-  });
-  
-  prevButton.addEventListener('click', () => {
-    clearInterval(slideTimer);
-    prevSlide();
-    startSlideshow();
-  });
-
-  // Draggable slider functionality
-  let isDragging = false;
-  let startX = 0;
-  let startScroll = 0;
-
-  const startDrag = (x) => {
-    isDragging = true;
-    startX = x;
-    startScroll = galleryElement.scrollLeft;
-    clearInterval(slideTimer);
-  };
-
-  const stopDrag = () => {
-    if (!isDragging) return;
-    isDragging = false;
-    startSlideshow();
-    const slideWidth = galleryElement.clientWidth;
-    const nearestIndex = Math.round(galleryElement.scrollLeft / slideWidth);
-    setSlide(nearestIndex);
-  };
-
-  const dragMove = (x) => {
-    if (!isDragging) return;
-    const delta = x - startX;
-    galleryElement.scrollLeft = startScroll - delta;
-  };
-
-  galleryElement.addEventListener('mousedown', (e) => startDrag(e.pageX));
-  galleryElement.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX));
-
-  window.addEventListener('mousemove', (e) => dragMove(e.pageX));
-  window.addEventListener('touchmove', (e) => dragMove(e.touches[0].pageX));
-
-  window.addEventListener('mouseup', stopDrag);
-  window.addEventListener('touchend', stopDrag);
-
-  window.addEventListener('resize', () => {
-    const slideWidth = galleryElement.clientWidth;
-    scrollToSlide(slideIndex);
-  });
-
-  // Zoom cards when they come into view
-  const infoCards = document.querySelectorAll('.info-card');
-  const cardObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('info-card--visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.25 }
-  );
-
-  infoCards.forEach((card) => cardObserver.observe(card));
-
-  // Progress cards: reveal + count-up when visible
-  const progressCards = document.querySelectorAll('.progress-card');
-  const progressObserver = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const card = entry.target;
-        card.classList.add('show');
-
-        const counterEl = card.querySelector('.progress-value');
-        if (counterEl) {
-          const target = parseInt(counterEl.dataset.target || '0', 10);
-          animateCounter(counterEl, target);
-        }
-
-        observer.unobserve(card);
-      });
-    },
-    { threshold: 0.3 }
-  );
-
-  progressCards.forEach((card) => progressObserver.observe(card));
-
-  function animateCounter(el, target) {
-    const duration = 1200;
-    const startTime = performance.now();
-
-    const step = (now) => {
-      const progress = Math.min((now - startTime) / duration, 1);
-      const value = Math.floor(progress * target);
-      el.textContent = value.toLocaleString();
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        el.textContent = target.toLocaleString();
-      }
+      slideIndex = 0; createDots(); updateDots();
+      galleryElement.scrollTo({ left: 0, behavior: 'auto' });
     };
 
-    requestAnimationFrame(step);
-  }
-});
+    const createDots = () => {
+      dotsContainer.innerHTML = '';
+      currentImages.forEach((_, idx) => {
+        const dot = document.createElement('span');
+        dot.className = 'dot';
+        dot.addEventListener('click', () => setSlide(idx));
+        dotsContainer.appendChild(dot);
+      });
+    };
+
+    const updateDots = () => {
+      dotsContainer.querySelectorAll('.dot').forEach((dot, idx) =>
+        dot.classList.toggle('active', idx === slideIndex));
+    };
+
+    const scrollToSlide = (index) => {
+      galleryElement.scrollTo({ left: index * galleryElement.clientWidth, behavior: 'smooth' });
+      updateDots();
+    };
+
+    const setSlide    = (index) => { slideIndex = (index + currentImages.length) % currentImages.length; scrollToSlide(slideIndex); };
+    const changeSlide = (delta) => setSlide(slideIndex + delta);
+    const nextSlide   = () => changeSlide(1);
+    const prevSlide   = () => changeSlide(-1);
+
+    const startSlideshow = () => {
+      if (slideTimer) clearInterval(slideTimer);
+      slideTimer = setInterval(nextSlide, slideIntervalMs);
+    };
+
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const wasMobile   = currentImages === mobileImages;
+        const isNowMobile = window.innerWidth <= 768;
+        if (wasMobile !== isNowMobile) { clearInterval(slideTimer); rebuildGallery(); startSlideshow(); }
+        else scrollToSlide(slideIndex);
+      }, 250);
+    });
+
+    const initializeGallery = () => {
+      currentImages = getImagesForCurrentWidth();
+      currentImages.forEach(({ src, alt = '' }) => {
+        const img = document.createElement('img');
+        img.src = src; img.alt = alt;
+        galleryElement.appendChild(img);
+      });
+      createDots(); updateDots();
+      galleryElement.scrollTo({ left: 0, behavior: 'auto' });
+    };
+
+    initializeGallery(); startSlideshow();
+
+    galleryElement.addEventListener('mouseenter', () => clearInterval(slideTimer));
+    galleryElement.addEventListener('mouseleave', startSlideshow);
+    nextButton.addEventListener('click', () => { clearInterval(slideTimer); nextSlide(); startSlideshow(); });
+    prevButton.addEventListener('click', () => { clearInterval(slideTimer); prevSlide(); startSlideshow(); });
+
+    let isDragging = false, startX = 0, startScroll = 0;
+    const startDrag = (x) => { isDragging = true; startX = x; startScroll = galleryElement.scrollLeft; clearInterval(slideTimer); };
+    const stopDrag  = () => { if (!isDragging) return; isDragging = false; startSlideshow(); setSlide(Math.round(galleryElement.scrollLeft / galleryElement.clientWidth)); };
+    const dragMove  = (x) => { if (isDragging) galleryElement.scrollLeft = startScroll - (x - startX); };
+
+    galleryElement.addEventListener('mousedown',  (e) => startDrag(e.pageX));
+    galleryElement.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX));
+    window.addEventListener('mousemove', (e) => dragMove(e.pageX));
+    window.addEventListener('touchmove', (e) => dragMove(e.touches[0].pageX));
+    window.addEventListener('mouseup',  stopDrag);
+    window.addEventListener('touchend', stopDrag);
+
+    const infoCards = document.querySelectorAll('.info-card');
+    infoCards.forEach(c => new IntersectionObserver((entries, obs) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('info-card--visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.25 }).observe(c));
+
+    const progressCards = document.querySelectorAll('.progress-card');
+    progressCards.forEach(card => {
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          card.classList.add('show');
+          const counterEl = card.querySelector('.progress-value');
+          if (counterEl) animateCounter(counterEl, parseInt(counterEl.dataset.target || '0', 10));
+          obs.unobserve(card);
+        });
+      }, { threshold: 0.3 }).observe(card);
+    });
+
+    function animateCounter(el, target) {
+      const duration = 1200, startTime = performance.now();
+      const step = (now) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        el.textContent = Math.floor(progress * target).toLocaleString();
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target.toLocaleString();
+      };
+      requestAnimationFrame(step);
+    }
+  });
   </script>
+
   <section class="info-grid" aria-label="What we believe and our mission">
     <div class="info-card">
       <h2>Rescue & Sterilization</h2>
       <p>We actively respond to calls to rescue injured, sick, or distressed street animals and ensure they receive timely medical care and treatment.</p>
-      <p>Post treatment, we try to return animals to their familiar street environment. Animals who are too injured, disabled, or vulnerable to survive on the streets again, , we currently provide care in a temporary shelter where they receive food, medical attention, and a safe place to live.</p>
+      <p>Post treatment, we try to return animals to their familiar street environment. Animals who are too injured, disabled, or vulnerable to survive on the streets again, we currently provide care in a temporary shelter where they receive food, medical attention, and a safe place to live.</p>
       <p>Our long-term vision is to create a permanent animal shelter. To make this dream a reality, we are seeking the support of compassionate individuals and organizations.</p>
-      <p>In addition to rescue efforts, we also carry out sterilization programs to help humanely control the street animal population.  🐾</p>
+      <p>In addition to rescue efforts, we also carry out sterilization programs to help humanely control the street animal population. 🐾</p>
     </div>
-
     <div class="info-card">
       <h2>Adoption Drive</h2>
       <p>We regularly organize pet adoption drives to help homeless dogs and cats find loving, permanent homes.</p>
-      <p>Over time, these efforts have received an overwhelming response from compassionate adopters. </p>
+      <p>Over time, these efforts have received an overwhelming response from compassionate adopters.</p>
       <p>Through these adoption initiatives, we aim not only to find homes for animals in need but also to encourage responsible pet adoption and build a more compassionate community for animals. 🐾</p>
-     
     </div>
-
-      <div class="info-card">
+    <div class="info-card">
       <h2>Food drive</h2>
       <p>We conduct regular food drives to support dogs, cats, and other animals living on the streets who often struggle to find adequate nutrition. Through these drives, our volunteers ensure that hungry animals receive safe and nutritious meals.</p>
       <p>What makes our feeding program unique is our commitment to compassion for all animals. The food we provide is completely free from animal products, ensuring that while we help street animals, we do not contribute to the exploitation or suffering of other animals. 🐾</p>
     </div>
-
-      <div class="info-card">
+    <div class="info-card">
       <h2>Education & Advocacy</h2>
-      <p>With advocacy efforts we aim to be the voice for animals who cannot speak for themselves.  Using various mediums like street outreach, seminars in school colleges, cooking workshops, awareness stalls etc we try to create awareness on how individuals and organizations can not just lead a cruelty free lifestyle but also provide support and help to animals in need. 🐾</p>
-      <!-- <p>Ashavan is growing as a compassion-driven movement, working toward long-term, sustainable solutions and future Happiness Centres where healing and harmony can exist together.</p> -->
+      <p>With advocacy efforts we aim to be the voice for animals who cannot speak for themselves. Using various mediums like street outreach, seminars in school colleges, cooking workshops, awareness stalls etc we try to create awareness on how individuals and organizations can not just lead a cruelty free lifestyle but also provide support and help to animals in need. 🐾</p>
     </div>
-
-
   </section>
 
   <section class="progress" aria-label="Our Progress">
@@ -355,48 +256,69 @@ function googleTranslateElementInit() {
       <div class="progress-card">
         <img class="progress-pic" src="image1.png" alt="Saved animals" />
         <div class="progress-text">
-          <span class="progress-value" data-target="10000">0</span><span class="progress-suffix">+</span><br>
-          saved animals
+          <span class="progress-value" data-target="10000">0</span><span class="progress-suffix">+</span><br>saved animals
         </div>
       </div>
-
       <div class="progress-card">
         <img class="progress-pic" src="image2.png" alt="Dogs adopted" />
         <div class="progress-text">
-          <span class="progress-value" data-target="180">0</span><span class="progress-suffix">+</span><br>
-          dogs adopted, 310 released
+          <span class="progress-value" data-target="180">0</span><span class="progress-suffix">+</span><br>dogs adopted, 310 released
         </div>
       </div>
-
       <div class="progress-card">
         <img class="progress-pic" src="image3.png" alt="Food drives" />
         <div class="progress-text">
-          <span class="progress-value" data-target="200">0</span><span class="progress-suffix">+</span><br>
-          Food Drives
+          <span class="progress-value" data-target="200">0</span><span class="progress-suffix">+</span><br>Food Drives
         </div>
       </div>
-
       <div class="progress-card">
         <img class="progress-pic" src="image4.png" alt="Vaccinated street dogs" />
         <div class="progress-text">
-          <span class="progress-value" data-target="100">0</span><span class="progress-suffix">+</span><br>
-          street dogs rabies vaccinated
+          <span class="progress-value" data-target="100">0</span><span class="progress-suffix">+</span><br>street dogs rabies vaccinated
         </div>
       </div>
     </div>
   </section>
+
 </main>
 
 <div id="footer"></div>
 
+<!-- 1. Load Google Translate silently (no auto-display) -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+<!-- 2. Dropdown triggers Google Translate's hidden combo -->
+<script>
+  function triggerGoogleTranslate(lang) {
+    // Google Translate injects a <select class="goog-te-combo"> into the hidden widget
+    const gtCombo = document.querySelector('.goog-te-combo');
+    if (gtCombo) {
+      gtCombo.value = lang;
+      gtCombo.dispatchEvent(new Event('change'));
+    } else {
+      // GT may not have initialised yet — retry after a short delay
+      setTimeout(() => triggerGoogleTranslate(lang), 500);
+    }
+  }
+
+  document.getElementById('lang-select').addEventListener('change', function () {
+    triggerGoogleTranslate(this.value);
+  });
+</script>
 
 <script>
   fetch('footer.html')
     .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
+    .then(data => { document.getElementById('footer').innerHTML = data; });
 </script>
 
 <script>
@@ -404,57 +326,22 @@ function googleTranslateElementInit() {
     .then(res => res.text())
     .then(data => {
       document.getElementById('header').innerHTML = data;
-
-      // IMPORTANT: reattach navbar JS after loading
       initNavbar();
     });
 
-
   function initNavbar() {
-    const toggle = document.querySelector('.nav-toggle');
-    const sidenav = document.getElementById('mySidenav');
+    const toggle   = document.querySelector('.nav-toggle');
+    const sidenav  = document.getElementById('mySidenav');
     const closeBtn = document.querySelector('.closebtn');
-    const overlay = document.querySelector('.nav-overlay');
+    const overlay  = document.querySelector('.nav-overlay');
 
-    function openNav() {
-      sidenav.classList.add('open');
-      overlay.classList.add('visible');
-      toggle.setAttribute('aria-expanded', 'true');
-    }
-
-    function closeNav() {
-      sidenav.classList.remove('open');
-      overlay.classList.remove('visible');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
+    const openNav  = () => { sidenav.classList.add('open'); overlay.classList.add('visible'); toggle.setAttribute('aria-expanded', 'true'); };
+    const closeNav = () => { sidenav.classList.remove('open'); overlay.classList.remove('visible'); toggle.setAttribute('aria-expanded', 'false'); };
 
     toggle.addEventListener('click', openNav);
     closeBtn.addEventListener('click', closeNav);
     overlay.addEventListener('click', closeNav);
   }
-</script>
-
-<script>
-  const toggle = document.querySelector('.nav-toggle');
-  const sidenav = document.getElementById('mySidenav');
-  const closeBtn = document.querySelector('.closebtn');
-  const overlay = document.querySelector('.nav-overlay');
-
-  function openNav() {
-    sidenav.classList.add('open');
-    overlay.classList.add('visible');
-    toggle.setAttribute('aria-expanded', 'true');
-  }
-
-  function closeNav() {
-    sidenav.classList.remove('open');
-    overlay.classList.remove('visible');
-    toggle.setAttribute('aria-expanded', 'false');
-  }
-
-  toggle.addEventListener('click', openNav);
-  closeBtn.addEventListener('click', closeNav);
-  overlay.addEventListener('click', closeNav);
 </script>
 
 </body>

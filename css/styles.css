@@ -24,6 +24,29 @@
   font-style: italic;
 }
 
+
+.goog-te-banner-frame,
+.goog-te-menu-value,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+/* Style your dropdown */
+#language-select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  cursor: pointer;
+  background: white;
+}
+
 div {
   /* margin: 10px; */
   font-size: 18px;
