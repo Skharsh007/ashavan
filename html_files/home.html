@@ -32,186 +32,276 @@
   <div class="dots" aria-label="Slide navigation"></div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const galleryImages = [
-        { src: '188.jpg', alt: 'Dogs eating on street' },
-        { src: '2.jpeg', alt: 'Feeding dogs' },
-        { src: '3.jpeg', alt: 'Dog drinking water' },
-        { src: '4.jpeg', alt: 'Dog getting help' },
-        { src: '5.jpeg', alt: 'Dog getting help' },
-        { src: '6.jpeg', alt: 'Dog getting help' },
-        { src: '7.jpeg', alt: 'Dog getting help' },
-        { src: '8.jpeg', alt: 'Dog getting help' },
-        { src: '9.jpeg', alt: 'Dog getting help' }
-      ];
+   document.addEventListener('DOMContentLoaded', () => {
+  const mobileImages = [
+    { src: '1.jpg', alt: 'Dogs eating on street' },
+    { src: '2.jpeg', alt: 'Feeding dogs' },
+    { src: '3.jpeg', alt: 'Dog drinking water' },
+    { src: '4.jpeg', alt: 'Dog getting help' },
+    { src: '5.jpeg', alt: 'Dog getting help' },
+    { src: '6.jpeg', alt: 'Dog getting help' },
+    { src: '7.jpeg', alt: 'Dog getting help' },
+    { src: '8.jpeg', alt: 'Dog getting help' },
+    { src: '9.jpeg', alt: 'Dog getting help' }
+  ];
 
-    const galleryElement = document.getElementById('gallery');
+  const desktopImages = [
+    { src: 'ad1.jpg'},
+    { src: 'ad2.jpg'},
+    { src: 'ad3.jpg'},
+    { src: 'ad4.jpg'},
+    { src: 'ad5.jpg'},
 
-    galleryImages.forEach(({ src, alt }) => {
+  ];
+
+  const galleryElement = document.getElementById('gallery');
+  const dotsContainer = document.querySelector('.dots');
+  const prevButton = document.querySelector('.prev');
+  const nextButton = document.querySelector('.next');
+  
+  let slideIndex = 0;
+  let slideIntervalMs = 7000;
+  let slideTimer;
+  let currentImages = [];
+
+  // Function to determine which images to use
+  const getImagesForCurrentWidth = () => {
+    return window.innerWidth <= 768 ? mobileImages : desktopImages;
+  };
+
+  // Function to rebuild the gallery
+  const rebuildGallery = () => {
+    // Clear existing gallery content
+    galleryElement.innerHTML = '';
+    
+    // Get new images based on current window width
+    currentImages = getImagesForCurrentWidth();
+    
+    // Add new images to gallery
+    currentImages.forEach(({ src, alt }) => {
       const img = document.createElement('img');
       img.src = src;
       img.alt = alt;
       galleryElement.appendChild(img);
     });
-
-    // Auto-slideshow + controls
-    let slideIndex = 0;
-    const slideIntervalMs = 7000;
-    let slideWidth = galleryElement.clientWidth;
-
-    const prevButton = document.querySelector('.prev');
-    const nextButton = document.querySelector('.next');
-    const dotsContainer = document.querySelector('.dots');
-
-    const createDots = () => {
-      dotsContainer.innerHTML = '';
-      galleryImages.forEach((_, idx) => {
-        const dot = document.createElement('span');
-        dot.className = 'dot';
-        dot.addEventListener('click', () => {
-          setSlide(idx);
-        });
-        dotsContainer.appendChild(dot);
-      });
-    };
-
-    const updateDots = () => {
-      dotsContainer.querySelectorAll('.dot').forEach((dot, idx) => {
-        dot.classList.toggle('active', idx === slideIndex);
-      });
-    };
-
-    const scrollToSlide = (index) => {
-      galleryElement.scrollTo({
-        left: index * slideWidth,
-        behavior: 'smooth'
-      });
-      updateDots();
-    };
-
-    const setSlide = (index) => {
-      slideIndex = (index + galleryImages.length) % galleryImages.length;
-      scrollToSlide(slideIndex);
-    };
-
-    const changeSlide = (delta) => {
-      setSlide(slideIndex + delta);
-    };
-
-    const nextSlide = () => changeSlide(1);
-    const prevSlide = () => changeSlide(-1);
-
+    
+    // Reset slide index
+    slideIndex = 0;
+    
+    // Recreate dots
     createDots();
     updateDots();
+    
+    // Scroll to first slide
+    const slideWidth = galleryElement.clientWidth;
+    galleryElement.scrollTo({ left: 0, behavior: 'auto' });
+  };
 
-    let slideTimer = setInterval(nextSlide, slideIntervalMs);
-
-    galleryElement.addEventListener('mouseenter', () => clearInterval(slideTimer));
-    galleryElement.addEventListener('mouseleave', () => {
-      slideTimer = setInterval(nextSlide, slideIntervalMs);
+  const createDots = () => {
+    dotsContainer.innerHTML = '';
+    currentImages.forEach((_, idx) => {
+      const dot = document.createElement('span');
+      dot.className = 'dot';
+      dot.addEventListener('click', () => {
+        setSlide(idx);
+      });
+      dotsContainer.appendChild(dot);
     });
+  };
 
-    nextButton.addEventListener('click', nextSlide);
-    prevButton.addEventListener('click', prevSlide);
-
-    // Draggable slider
-    let isDragging = false;
-    let startX = 0;
-    let startScroll = 0;
-
-    const startDrag = (x) => {
-      isDragging = true;
-      startX = x;
-      startScroll = galleryElement.scrollLeft;
-      clearInterval(slideTimer);
-    };
-
-    const stopDrag = () => {
-      if (!isDragging) return;
-      isDragging = false;
-      slideTimer = setInterval(nextSlide, slideIntervalMs);
-      // Snap to nearest slide
-      const nearestIndex = Math.round(galleryElement.scrollLeft / slideWidth);
-      setSlide(nearestIndex);
-    };
-
-    const dragMove = (x) => {
-      if (!isDragging) return;
-      const delta = x - startX;
-      galleryElement.scrollLeft = startScroll - delta;
-    };
-
-    galleryElement.addEventListener('mousedown', (e) => startDrag(e.pageX));
-    galleryElement.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX));
-
-    window.addEventListener('mousemove', (e) => dragMove(e.pageX));
-    window.addEventListener('touchmove', (e) => dragMove(e.touches[0].pageX));
-
-    window.addEventListener('mouseup', stopDrag);
-    window.addEventListener('touchend', stopDrag);
-
-    window.addEventListener('resize', () => {
-      slideWidth = galleryElement.clientWidth;
-      scrollToSlide(slideIndex);
+  const updateDots = () => {
+    const dots = dotsContainer.querySelectorAll('.dot');
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === slideIndex);
     });
+  };
 
-    // Zoom cards when they come into view.
-    const infoCards = document.querySelectorAll('.info-card');
-    const cardObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('info-card--visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
+  const scrollToSlide = (index) => {
+    const slideWidth = galleryElement.clientWidth;
+    galleryElement.scrollTo({
+      left: index * slideWidth,
+      behavior: 'smooth'
+    });
+    updateDots();
+  };
 
-    infoCards.forEach((card) => cardObserver.observe(card));
+  const setSlide = (index) => {
+    slideIndex = (index + currentImages.length) % currentImages.length;
+    scrollToSlide(slideIndex);
+  };
 
-    // Progress cards: reveal + count-up when visible
-    const progressCards = document.querySelectorAll('.progress-card');
-    const progressObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const card = entry.target;
-          card.classList.add('show');
+  const changeSlide = (delta) => {
+    setSlide(slideIndex + delta);
+  };
 
-          const counterEl = card.querySelector('.progress-value');
-          if (counterEl) {
-            const target = parseInt(counterEl.dataset.target || '0', 10);
-            animateCounter(counterEl, target);
-          }
+  const nextSlide = () => changeSlide(1);
+  const prevSlide = () => changeSlide(-1);
 
-          observer.unobserve(card);
-        });
-      },
-      { threshold: 0.3 }
-    );
+  const startSlideshow = () => {
+    if (slideTimer) clearInterval(slideTimer);
+    slideTimer = setInterval(nextSlide, slideIntervalMs);
+  };
 
-    progressCards.forEach((card) => progressObserver.observe(card));
+  // Handle window resize
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    // Clear the timeout to prevent multiple rapid rebuilds
+    clearTimeout(resizeTimeout);
+    
+    // Debounce the resize event
+    resizeTimeout = setTimeout(() => {
+      const wasMobile = currentImages === mobileImages;
+      const isNowMobile = window.innerWidth <= 768;
+      
+      // Only rebuild if the image set actually needs to change
+      if (wasMobile !== isNowMobile) {
+        // Clear the slideshow timer temporarily
+        if (slideTimer) clearInterval(slideTimer);
+        
+        // Rebuild the gallery with appropriate images
+        rebuildGallery();
+        
+        // Restart slideshow
+        startSlideshow();
+      }
+    }, 250);
+  });
 
-    function animateCounter(el, target) {
-      const duration = 1200;
-      const startTime = performance.now();
+  // Initialize the gallery
+  const initializeGallery = () => {
+    currentImages = getImagesForCurrentWidth();
+    
+    currentImages.forEach(({ src, alt }) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = alt;
+      galleryElement.appendChild(img);
+    });
+    
+    createDots();
+    updateDots();
+    
+    const slideWidth = galleryElement.clientWidth;
+    galleryElement.scrollTo({ left: 0, behavior: 'auto' });
+  };
 
-      const step = (now) => {
-        const progress = Math.min((now - startTime) / duration, 1);
-        const value = Math.floor(progress * target);
-        el.textContent = value.toLocaleString();
-        if (progress < 1) {
-          requestAnimationFrame(step);
-        } else {
-          el.textContent = target.toLocaleString();
+  initializeGallery();
+  startSlideshow();
+
+  // Slideshow controls
+  galleryElement.addEventListener('mouseenter', () => clearInterval(slideTimer));
+  galleryElement.addEventListener('mouseleave', startSlideshow);
+
+  nextButton.addEventListener('click', () => {
+    clearInterval(slideTimer);
+    nextSlide();
+    startSlideshow();
+  });
+  
+  prevButton.addEventListener('click', () => {
+    clearInterval(slideTimer);
+    prevSlide();
+    startSlideshow();
+  });
+
+  // Draggable slider functionality
+  let isDragging = false;
+  let startX = 0;
+  let startScroll = 0;
+
+  const startDrag = (x) => {
+    isDragging = true;
+    startX = x;
+    startScroll = galleryElement.scrollLeft;
+    clearInterval(slideTimer);
+  };
+
+  const stopDrag = () => {
+    if (!isDragging) return;
+    isDragging = false;
+    startSlideshow();
+    const slideWidth = galleryElement.clientWidth;
+    const nearestIndex = Math.round(galleryElement.scrollLeft / slideWidth);
+    setSlide(nearestIndex);
+  };
+
+  const dragMove = (x) => {
+    if (!isDragging) return;
+    const delta = x - startX;
+    galleryElement.scrollLeft = startScroll - delta;
+  };
+
+  galleryElement.addEventListener('mousedown', (e) => startDrag(e.pageX));
+  galleryElement.addEventListener('touchstart', (e) => startDrag(e.touches[0].pageX));
+
+  window.addEventListener('mousemove', (e) => dragMove(e.pageX));
+  window.addEventListener('touchmove', (e) => dragMove(e.touches[0].pageX));
+
+  window.addEventListener('mouseup', stopDrag);
+  window.addEventListener('touchend', stopDrag);
+
+  window.addEventListener('resize', () => {
+    const slideWidth = galleryElement.clientWidth;
+    scrollToSlide(slideIndex);
+  });
+
+  // Zoom cards when they come into view
+  const infoCards = document.querySelectorAll('.info-card');
+  const cardObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('info-card--visible');
+          observer.unobserve(entry.target);
         }
-      };
+      });
+    },
+    { threshold: 0.25 }
+  );
 
-      requestAnimationFrame(step);
-    }
-    });
+  infoCards.forEach((card) => cardObserver.observe(card));
+
+  // Progress cards: reveal + count-up when visible
+  const progressCards = document.querySelectorAll('.progress-card');
+  const progressObserver = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const card = entry.target;
+        card.classList.add('show');
+
+        const counterEl = card.querySelector('.progress-value');
+        if (counterEl) {
+          const target = parseInt(counterEl.dataset.target || '0', 10);
+          animateCounter(counterEl, target);
+        }
+
+        observer.unobserve(card);
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  progressCards.forEach((card) => progressObserver.observe(card));
+
+  function animateCounter(el, target) {
+    const duration = 1200;
+    const startTime = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const value = Math.floor(progress * target);
+      el.textContent = value.toLocaleString();
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target.toLocaleString();
+      }
+    };
+
+    requestAnimationFrame(step);
+  }
+});
   </script>
   <section class="info-grid" aria-label="What we believe and our mission">
     <div class="info-card">
