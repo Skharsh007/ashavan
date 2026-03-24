@@ -4,24 +4,38 @@
   font-family: "PT Serif", serif;
   font-weight: 400;
   font-style: normal;
+
+  /* Base (mobile first) */
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 0 15px;
 }
 
-.pt-serif-bold {
-  font-family: "PT Serif", serif;
-  font-weight: 700;
-  font-style: normal;
+/* Tablets (≥ 768px) */
+@media (min-width: 768px) {
+  .pt-serif-regular {
+    font-size: 16px;
+    line-height: 1.7;
+    max-width: 90%;
+  }
 }
 
-.pt-serif-regular-italic {
-  font-family: "PT Serif", serif;
-  font-weight: 400;
-  font-style: italic;
+/* Small laptops / large tablets (≥ 1024px) */
+@media (min-width: 1024px) {
+  .pt-serif-regular {
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 75%;
+  }
 }
 
-.pt-serif-bold-italic {
-  font-family: "PT Serif", serif;
-  font-weight: 700;
-  font-style: italic;
+/* Desktop (≥ 1280px) */
+@media (min-width: 1280px) {
+  .pt-serif-regular {
+    font-size: 20px;
+    line-height: 1.9;
+    max-width: 60%;
+  }
 }
 
 

@@ -2,132 +2,453 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ashavan</title>
-  <link rel="stylesheet" href="../css/styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ashavan | Get Involved - Sponsor, Adopt, Volunteer</title>
+   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/about_styles.css">
-  <!-- Link Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
-</head>
+  <!-- Google Fonts + enhanced system fonts for readability -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 for optional icons (subtle enhancement) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- GLOBAL RESET & RESPONSIVE FOUNDATION ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      background: #fefaf5;
+      font-family: 'Inter', 'PT Serif', Georgia, serif;
+      color: #1e2a2f;
+      line-height: 1.55;
+      overflow-x: hidden;
+    }
+
+    /* main container for all content sections - fully responsive */
+    .page-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* responsive heading style - matches brand identity */
+    .abouttxt {
+      font-family: 'PT Serif', serif;
+      font-weight: 700;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      letter-spacing: -0.01em;
+      color: #2c5f2d;
+      border-left: 6px solid #e6b422;
+      padding-left: 1.2rem;
+      margin: 2rem 0 1.2rem 0;
+      line-height: 1.2;
+    }
+
+    /* main responsive text container - fluid typography and spacing */
+    .responsive-card {
+      background: #ffffffea;
+      backdrop-filter: blur(0px);
+      border-radius: 28px;
+      padding: 1.8rem 2.2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.02), 0 2px 4px rgba(0, 0, 0, 0.02);
+      transition: all 0.25s ease;
+      border: 1px solid rgba(230, 180, 34, 0.15);
+    }
+
+    .responsive-card:hover {
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.04);
+      background: #ffffff;
+      border-color: rgba(230, 180, 34, 0.25);
+    }
+
+    /* fluid paragraph typography */
+    .responsive-text {
+      font-size: clamp(1rem, 2.2vw, 1.18rem);
+      font-weight: 400;
+      color: #2c3e2f;
+      line-height: 1.65;
+    }
+
+    .responsive-text p {
+      margin-bottom: 1.25rem;
+    }
+
+    .responsive-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* volunteer link styling - accessible & responsive */
+    .volunteer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #2c5f2d;
+      color: white !important;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border-radius: 60px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+      margin-top: 0.75rem;
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 6px rgba(44, 95, 45, 0.2);
+      border: none;
+    }
+
+    .volunteer-link i {
+      font-size: 1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .volunteer-link:hover {
+      background: #1f4520;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(44, 95, 45, 0.25);
+      text-decoration: none;
+      color: white;
+    }
+
+    .volunteer-link:hover i {
+      transform: translateX(4px);
+    }
+
+    /* special styling for volunteer section extra spacing */
+    .volunteer-action {
+      margin-top: 1.2rem;
+    }
+
+    /* remove dummy white text - we'll hide it for cleaner layout */
+    .hidden-placeholder {
+      display: none;
+    }
+
+    /* header & footer dynamic containers */
+    #header, #footer {
+      width: 100%;
+    }
+
+    /* responsive spacing for mobile */
+    @media (max-width: 768px) {
+      .page-content {
+        padding: 0 1.5rem;
+      }
+      .responsive-card {
+        padding: 1.4rem 1.5rem;
+        border-radius: 24px;
+      }
+      .abouttxt {
+        padding-left: 1rem;
+        border-left-width: 4px;
+        margin: 1.5rem 0 1rem 0;
+      }
+      .volunteer-link {
+        padding: 0.7rem 1.6rem;
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-content {
+        padding: 0 1.2rem;
+      }
+      .responsive-card {
+        padding: 1.2rem 1.2rem;
+        border-radius: 20px;
+      }
+      .responsive-text {
+        font-size: 1rem;
+      }
+      .abouttxt {
+        font-size: clamp(1.8rem, 7vw, 2.6rem);
+      }
+    }
+
+    /* extra large screens maintain comfortable max-width */
+    @media (min-width: 1400px) {
+      .page-content {
+        max-width: 1400px;
+      }
+      .responsive-card {
+        padding: 2.2rem 2.8rem;
+      }
+    }
+
+    /* decorative divider between sections (optional subtle separation) */
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, #e6b42220, #e6b42260, #e6b42220);
+      width: 100px;
+      margin: 0.5rem 0 1.8rem 0;
+      border-radius: 4px;
+    }
+
+    /* maintain consistent spacing between multiple page-content sections */
+    .page-content + .page-content {
+      margin-top: 0.5rem;
+    }
+
+    /* make inline links in paragraphs friendly
+    a:not(.volunteer-link) {
+      color: #2c5f2d;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+    } */
+
+    a:not(.volunteer-link):hover {
+      color: #e6b422;
+    }
+
+    /* ensure any external style overrides from about_styles.css don't break responsiveness */
+    .pt-serif-regular {
+      font-family: 'Inter', 'PT Serif', serif;
+    }
+
+    /* fix potential max-width issues from inline styles */
+    [style*="max-width: 120%"] {
+      max-width: 100% !important;
+    }
+  </style>
+</head>
 <body>
+
 <div id="header"></div>
 
-
-<!-- Sponsor -->
+<!-- ========== SPONSOR SECTION ========== -->
 <main class="page-content">
-    <h1 class="abouttxt" style="margin-top: 40px;">Sponsor</h1>
-   
-<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto;">
-
-  <p>Some animals are destined to spend their lives at our centers as they cannot be released or adopted. You can help us take care of these lovely animals by contributing towards their upkeep. Please contact us to get details and discuss about these special animals.</p>
-</div>
+  <h1 class="abouttxt">Sponsor</h1>
+  <div class="responsive-card">
+    <div class="responsive-text">
+      <p>Some animals are destined to spend their lives at our centers as they cannot be released or adopted. You can help us take care of these lovely animals by contributing towards their upkeep. Please contact us to get details and discuss about these special animals.</p>
+    </div>
+  </div>
 </main>
 
-
-<!-- Adopt -->
+<!-- ========== ADOPT SECTION ========== -->
 <main class="page-content">
-    <h1 class="abouttxt" style="margin-top: 40px;">Adopt</h1>
-   
-<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto;">
-
-  <p>Our dogs and cats are looking for a home. Each would be a wonderful addition to a responsible, loving family. Please contact us and that can be the first step to a new life long friendship for you.</p>
-</div>
+  <h1 class="abouttxt">Adopt</h1>
+  <div class="responsive-card">
+    <div class="responsive-text">
+      <p>Our dogs and cats are looking for a home. Each would be a wonderful addition to a responsible, loving family. Please contact us and that can be the first step to a new life long friendship for you.</p>
+    </div>
+  </div>
 </main>
 
-
-<!-- Volunteer -->
+<!-- ========== VOLUNTEER SECTION ========== -->
 <main class="page-content">
-    <h1 class="abouttxt" style="margin-top: 40px;">Volunteer</h1>
-   
-<div class="pt-serif-regular" style="text-align: center; max-width: 120%; margin: 0 auto;">
-
-  <p>Our work for animals is made possible by the kindness and dedication of volunteers who believe in compassion and care for all living beings. If you share this belief and would like to make a difference in the lives of animals, we would love to have you join us.
-Volunteers can support our initiatives in many ways—helping during adoption drives, assisting in feeding street animals, supporting rescue efforts, spreading awareness about compassionate living, or helping with events and community outreach.
-Whether you can contribute your time regularly or occasionally, every effort makes a meaningful difference for animals in need. By volunteering with us, you become part of a community that is working together to create a safer and more compassionate world for animals.
-If you would like to volunteer, please get in touch with us. Together, we can do so much more. 🐾
-</p>
-<p>
-  <a href="form.html" style="color: blue; text-decoration: underline;">
-    Click here to volunteer
-  </a>
-</p>
-
-</div>
+  <h1 class="abouttxt">Volunteer</h1>
+  <div class="responsive-card">
+    <div class="responsive-text">
+      <p>Our work for animals is made possible by the kindness and dedication of volunteers who believe in compassion and care for all living beings. If you share this belief and would like to make a difference in the lives of animals, we would love to have you join us.</p>
+      <p>Volunteers can support our initiatives in many ways—helping during adoption drives, assisting in feeding street animals, supporting rescue efforts, spreading awareness about compassionate living, or helping with events and community outreach.</p>
+      <p>Whether you can contribute your time regularly or occasionally, every effort makes a meaningful difference for animals in need. By volunteering with us, you become part of a community that is working together to create a safer and more compassionate world for animals.</p>
+      <p>If you would like to volunteer, please get in touch with us. Together, we can do so much more. 🐾</p>
+      <div class="volunteer-action">
+        <a href="form.html" class="volunteer-link">
+          <i class="fas fa-paw"></i> Click here to volunteer
+          <i class="fas fa-arrow-right" style="font-size: 0.85rem;"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 </main>
 
-
-<p style="margin-bottom: 150px; color: white;">This is text</p>
+<!-- hidden dummy paragraph removed for clean semantic layout (original white text placeholder removed) -->
+<div class="hidden-placeholder"></div>
 
 <div id="footer"></div>
 
-
-
 <script>
-  fetch('footer.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('footer').innerHTML = data;
-    });
-</script>
-
-<script>
-  fetch('header.html')
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById('header').innerHTML = data;
-
-      // IMPORTANT: reattach navbar JS after loading
-      initNavbar();
-    });
-
-
+  // Helper: robust loading of header/footer with navbar reinitialization
   function initNavbar() {
+    // small delay to ensure DOM elements from header are fully parsed
     const toggle = document.querySelector('.nav-toggle');
     const sidenav = document.getElementById('mySidenav');
     const closeBtn = document.querySelector('.closebtn');
     const overlay = document.querySelector('.nav-overlay');
-
+    
+    if (!toggle || !sidenav || !closeBtn || !overlay) {
+      // navbar structure might be missing or custom header version — no error needed
+      return;
+    }
+    
+    // remove any previous listeners to avoid duplication
+    const newToggle = toggle.cloneNode(true);
+    if (toggle.parentNode) {
+      toggle.parentNode.replaceChild(newToggle, toggle);
+    }
+    const newCloseBtn = closeBtn.cloneNode(true);
+    if (closeBtn.parentNode) {
+      closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+    }
+    const finalToggle = document.querySelector('.nav-toggle');
+    const finalCloseBtn = document.querySelector('.closebtn');
+    const finalOverlay = document.querySelector('.nav-overlay');
+    const finalSidenav = document.getElementById('mySidenav');
+    
+    if (!finalToggle || !finalSidenav || !finalCloseBtn || !finalOverlay) return;
+    
     function openNav() {
-      sidenav.classList.add('open');
-      overlay.classList.add('visible');
-      toggle.setAttribute('aria-expanded', 'true');
+      finalSidenav.classList.add('open');
+      finalOverlay.classList.add('visible');
+      finalToggle.setAttribute('aria-expanded', 'true');
     }
-
+    
     function closeNav() {
-      sidenav.classList.remove('open');
-      overlay.classList.remove('visible');
-      toggle.setAttribute('aria-expanded', 'false');
+      finalSidenav.classList.remove('open');
+      finalOverlay.classList.remove('visible');
+      finalToggle.setAttribute('aria-expanded', 'false');
     }
-
-    toggle.addEventListener('click', openNav);
-    closeBtn.addEventListener('click', closeNav);
-    overlay.addEventListener('click', closeNav);
+    
+    finalToggle.addEventListener('click', openNav);
+    finalCloseBtn.addEventListener('click', closeNav);
+    finalOverlay.addEventListener('click', closeNav);
   }
+  
+  // load header, then init navbar; load footer independently
+  function loadComponent(elementId, filePath, onSuccessCallback = null) {
+    fetch(filePath)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to load ${filePath}: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then(html => {
+        const element = document.getElementById(elementId);
+        if (element) {
+          element.innerHTML = html;
+          if (onSuccessCallback && typeof onSuccessCallback === 'function') {
+            onSuccessCallback();
+          }
+        }
+      })
+      .catch(err => {
+        console.warn(`⚠️ Could not load ${filePath}:`, err);
+        // optional fallback UI to preserve layout
+        if (elementId === 'header') {
+          const fallbackHeader = document.getElementById('header');
+          if (fallbackHeader) {
+            fallbackHeader.innerHTML = '<div style="background:#2c5f2d; color:white; text-align:center; padding:1.2rem; font-family: PT Serif, serif;">🐾 Ashavan — Compassion in Action</div>';
+          }
+        }
+        if (elementId === 'footer') {
+          const fallbackFooter = document.getElementById('footer');
+          if (fallbackFooter) {
+            fallbackFooter.innerHTML = '<div style="background:#1e2a2f; color:#ddd; text-align:center; padding:1.5rem; font-size:0.9rem;">© Ashavan — Every act of kindness matters</div>';
+          }
+        }
+      });
+  }
+  
+  // load header and re-attach navbar events after injection
+  loadComponent('header', 'header.html', () => {
+    initNavbar();
+    // additional safety: if header contains dynamic scripts, re-run after short delay
+    setTimeout(() => {
+      initNavbar();
+    }, 80);
+  });
+  
+  // load footer separately
+  loadComponent('footer', 'footer.html');
+  
+  // also ensure that if page fully loads and header already exists (cached) we bind navbar again
+  window.addEventListener('load', function() {
+    if (document.querySelector('.nav-toggle')) {
+      initNavbar();
+    }
+    // fix any inline style issues that might cause overflow from original inline styles
+    const allDivs = document.querySelectorAll('[style*="max-width: 120%"]');
+    allDivs.forEach(el => {
+      el.style.maxWidth = '100%';
+    });
+  });
+  
+  // small mutation observer to catch dynamic insertion of navbar elements (extra safety)
+  const observer = new MutationObserver(function(mutations) {
+    if (document.querySelector('.nav-toggle') && !window._navbarBound) {
+      initNavbar();
+      window._navbarBound = true;
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
 </script>
 
-<script>
-  const toggle = document.querySelector('.nav-toggle');
-  const sidenav = document.getElementById('mySidenav');
-  const closeBtn = document.querySelector('.closebtn');
-  const overlay = document.querySelector('.nav-overlay');
-
-  function openNav() {
-    sidenav.classList.add('open');
-    overlay.classList.add('visible');
-    toggle.setAttribute('aria-expanded', 'true');
+<!-- Additional responsive enhancements: ensure any residual external CSS from about_styles.css doesn't break responsiveness -->
+<style>
+  /* override any global fixed widths that may come from external stylesheets */
+  .page-content,
+  .responsive-card,
+  .responsive-text {
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
-
-  function closeNav() {
-    sidenav.classList.remove('open');
-    overlay.classList.remove('visible');
-    toggle.setAttribute('aria-expanded', 'false');
+  
+  /* ensure images/icons in header/footer remain fluid */
+  #header img, #footer img {
+    max-width: 100%;
+    height: auto;
   }
-
-  toggle.addEventListener('click', openNav);
-  closeBtn.addEventListener('click', closeNav);
-  overlay.addEventListener('click', closeNav);
-</script>
-
+  
+  /* enhance touch targets for mobile */
+  @media (max-width: 640px) {
+    .volunteer-link {
+      width: 100%;
+      justify-content: center;
+    }
+    .responsive-card {
+      margin-bottom: 1.6rem;
+    }
+  }
+  
+  /* maintain container integrity */
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  #footer {
+    margin-top: auto;
+  }
+  
+  /* subtle brand accent for cards */
+  .responsive-card {
+    border-bottom: 2px solid rgba(230, 180, 34, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  /* add gentle spacing between sections */
+  .page-content:first-of-type .abouttxt {
+    margin-top: 0.5rem;
+  }
+  
+  /* responsive link hover effect */
+  .volunteer-link:active {
+    transform: scale(0.97);
+  }
+  
+  /* improve readability for long paragraphs on narrow screens */
+  @media (max-width: 480px) {
+    .responsive-text {
+      text-align: left;
+    }
+    .abouttxt {
+      text-align: left;
+    }
+  }
+  
+  /* optional fancy quote mark enhancement */
+  .responsive-text p:first-of-type::first-letter {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #e6b422;
+  }
+</style>
 </body>
 </html>
