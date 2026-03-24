@@ -367,16 +367,7 @@ a {
 }
 
 
-@media (max-width: 768px) {
-  .progress-container {
-    justify-content: center;
-  }
 
-  .progress-card {
-    width: calc(50% - 20px); /* 2 per row */
-    height: auto;
-  }
-}
 /* Hide scrollbar for a cleaner look */
 .progress-container::-webkit-scrollbar {
   height: 8px;
@@ -414,6 +405,29 @@ a {
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
   text-align: center;
+}
+
+@media (max-width: 768px) {
+.progress-card {
+
+  background: linear-gradient(
+    to bottom,
+    #a84300 0%,     /* deep orange-brown */
+    #8f3600 40%,    /* darker mid tone */
+    #7a2d00 65%,    /* rich brown */
+    #c97b5c 100%    /* soft faded peach bottom */
+  );
+  display: flex;
+  /* flex-direction: column; */
+  width: calc(50% - 20px); /* 2 per row */
+  height: auto;
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
 }
 
 .progress-pic {
