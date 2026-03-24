@@ -358,14 +358,25 @@ a {
 
 .progress-container {
   display: flex;
-  flex-wrap: nowrap; /* keep cards in a single row */
+  flex-wrap: wrap; /* keep cards in a single row */
   justify-content: center;
   gap: 20px;
-  overflow-x: auto; /* allow horizontal scrolling on smaller screens */
+  /* overflow-x: auto; allow horizontal scrolling on smaller screens */
   padding: 0 14px;
-  -webkit-overflow-scrolling: touch;
+  /* -webkit-overflow-scrolling: touch; */
 }
 
+
+@media (max-width: 768px) {
+  .progress-container {
+    justify-content: center;
+  }
+
+  .progress-card {
+    width: calc(50% - 20px); /* 2 per row */
+    height: auto;
+  }
+}
 /* Hide scrollbar for a cleaner look */
 .progress-container::-webkit-scrollbar {
   height: 8px;

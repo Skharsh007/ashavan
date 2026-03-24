@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashavan</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/about_styles.css">
+  <!-- Link Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Additional inline styles to ensure image layout matches the removed text section */
+    .image-replacement-section {
+      margin: 2rem auto;
+      max-width: 100%;
+      text-align: center;
+    }
+    .image-replacement-section img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      display: block;
+      margin: 0 auto;
+    }
+    /* preserve original spacing and font styles */
+    .pt-serif-regular {
+      font-family: 'PT Serif', serif;
+      font-weight: 400;
+    }
+    .abouttxt {
+      font-family: 'PT Serif', serif;
+      font-weight: 700;
+      text-align: center;
+    }
+    .page-content {
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px;
+    }
+    /* ensure consistent text styling for belief section */
+    .belief-text {
+      text-align: center;
+      max-width: 120%;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+<div id="header"></div>
+
+<main class="page-content">
+    <h1 class="abouttxt" style="margin-top: 40px;">Donate Us</h1>
+   
+    
+    <div class="pt-serif-regular image-replacement-section" style="text-align: center; max-width: 120%; margin: 0 auto;">
+    
+      <img src="donate.jpeg" alt="Ashavan movement - compassion and kindness" style="width:100%; max-width:1000px; border-radius:16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+    </div>
+</main>
+
+
+
+<p style="margin-bottom: 150px; color: white;">This is text</p>
+
+<div id="footer"></div>
+
+<script>
+  fetch('footer.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    })
+    .catch(err => console.warn('Footer fetch failed:', err));
+</script>
+
+<script>
+  fetch('header.html')
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+      // IMPORTANT: reattach navbar JS after loading
+      initNavbar();
+    })
+    .catch(err => console.warn('Header fetch failed:', err));
+
+  function initNavbar() {
+    const toggle = document.querySelector('.nav-toggle');
+    const sidenav = document.getElementById('mySidenav');
+    const closeBtn = document.querySelector('.closebtn');
+    const overlay = document.querySelector('.nav-overlay');
+
+    if (!toggle || !sidenav || !closeBtn || !overlay) {
+      console.warn('Navbar elements not found, possibly header missing expected classes');
+      return;
+    }
+
+    function openNav() {
+      sidenav.classList.add('open');
+      overlay.classList.add('visible');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeNav() {
+      sidenav.classList.remove('open');
+      overlay.classList.remove('visible');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', openNav);
+    closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+  }
+</script>
+
+<script>
+ 
+</script>
+
+<script>
+
+  (function() {
+    function safeInitNavbar() {
+      const toggle = document.querySelector('.nav-toggle');
+      const sidenav = document.getElementById('mySidenav');
+      const closeBtn = document.querySelector('.closebtn');
+      const overlay = document.querySelector('.nav-overlay');
+      if (!toggle || !sidenav || !closeBtn || !overlay) return false;
+      
+      // avoid duplicate listeners by checking if already bound
+      if (toggle.getAttribute('data-nav-bound') === 'true') return true;
+      
+      function openNav() {
+        sidenav.classList.add('open');
+        overlay.classList.add('visible');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+      function closeNav() {
+        sidenav.classList.remove('open');
+        overlay.classList.remove('visible');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+      toggle.addEventListener('click', openNav);
+      closeBtn.addEventListener('click', closeNav);
+      overlay.addEventListener('click', closeNav);
+      toggle.setAttribute('data-nav-bound', 'true');
+      return true;
+    }
+    // initial attempt if elements already exist
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', safeInitNavbar);
+    } else {
+      safeInitNavbar();
+    }
+    // Also listen for dynamic changes in case header loads after DOMContentLoaded
+    const observer = new MutationObserver(function(mutations) {
+      if (document.querySelector('.nav-toggle') && document.getElementById('mySidenav')) {
+        safeInitNavbar();
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  })();
+</script>
+
+</body>
+</html>
