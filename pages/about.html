@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Ashavan | About Us - Compassion in Action</title>
-   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/about_styles.css">
   <!-- Google Fonts: Enhanced readability & responsiveness -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
@@ -12,14 +12,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     /* ---------- RESET & GLOBAL RESPONSIVE BASE ---------- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      background: #fefaf5;   /* warm, gentle background */
+      background: #fefaf5;
       font-family: 'Inter', 'PT Serif', serif;
       color: #1e2a2f;
       line-height: 1.55;
@@ -27,14 +23,13 @@
       scroll-behavior: smooth;
     }
 
-    /* responsive container for main content */
     .about-container {
       max-width: 1280px;
       margin: 0 auto;
       padding: 1.5rem 2rem 4rem 2rem;
+      width: 100%;
     }
 
-    /* headings - fully fluid typography */
     .abouttxt {
       font-family: 'PT Serif', serif;
       font-weight: 700;
@@ -47,11 +42,8 @@
       line-height: 1.2;
     }
 
-    .abouttxt:first-of-type {
-      margin-top: 0.5rem;
-    }
+    .abouttxt:first-of-type { margin-top: 0.5rem; }
 
-    /* paragraph wrapper – responsive spacing and font sizing */
     .responsive-text {
       font-size: clamp(1rem, 2.2vw, 1.2rem);
       font-weight: 400;
@@ -65,77 +57,38 @@
       line-height: 1.65;
     }
 
-    /* special styling for belief section to create subtle variation */
     .belief-text {
       background: #fffaf3;
       border-left: 4px solid #e6b422;
       box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
     }
 
-    /* optional decorative quote effect */
-    .responsive-text p {
-      margin-bottom: 1rem;
-    }
+    .responsive-text p { margin-bottom: 1rem; }
+    .responsive-text p:last-child { margin-bottom: 0; }
 
-    .responsive-text p:last-child {
-      margin-bottom: 0;
-    }
+    .dummy-hidden { display: none; }
 
-    /* remove the dummy white text placeholder, but keep if needed? Instead we transform original structure */
-    .dummy-hidden {
-      display: none;
-    }
+    img, video { max-width: 100%; height: auto; }
 
-    /* ensure images/videos if any remain fluid */
-    img, video {
-      max-width: 100%;
-      height: auto;
-    }
+    #header { width: 100%; }
 
-    /* Header & footer are loaded dynamically — we preserve their responsiveness
-       but we give some spacing adjustments so content never overlaps */
-    #header {
-      width: 100%;
-    }
-
-    #footer {
-      width: 100%;
-      /* margin-top: 2rem; */
-    }
-
-    /* make sure text containers are readable on narrow devices */
     @media (max-width: 640px) {
-      .about-container {
-        padding: 1rem 1.25rem 3rem 1.25rem;
-      }
-      .responsive-text {
-        padding: 1.2rem 1.2rem;
-        border-radius: 20px;
-      }
-      .abouttxt {
-        padding-left: 1rem;
-        border-left-width: 4px;
-      }
+      .about-container { padding: 1rem 1.25rem 3rem 1.25rem; }
+      .responsive-text { padding: 1.2rem 1.2rem; border-radius: 20px; }
+      .abouttxt { padding-left: 1rem; border-left-width: 4px; }
     }
 
-    /* extra large screens: comfortable max-width for paragraphs */
     @media (min-width: 1400px) {
-      .about-container {
-        max-width: 1400px;
-      }
-      .responsive-text {
-        padding: 2rem 2.8rem;
-      }
+      .about-container { max-width: 1400px; }
+      .responsive-text { padding: 2rem 2.8rem; }
     }
 
-    /* hover effect for subtle elegance */
     .responsive-text:hover {
       background: #fffdf9;
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
       transition: 0.2s;
     }
 
-    /* simple divider for visual rhythm */
     .spacer-line {
       height: 2px;
       background: linear-gradient(90deg, #e6b42220, #e6b42280, #e6b42220);
@@ -144,9 +97,31 @@
       border-radius: 4px;
     }
 
-    /* footer spacing to avoid overlapping */
-    .bottom-placeholder {
-      height: 0.5rem;
+    .bottom-placeholder { height: 0.5rem; }
+
+    @media (max-width: 768px) {
+      body, .about-container, .responsive-text { word-break: break-word; overflow-wrap: break-word; }
+      h1, h2, h3 { word-break: break-word; }
+    }
+
+    @media (max-width: 480px) {
+      .responsive-text { font-size: 1rem; padding: 1rem; }
+      .abouttxt { margin: 1.8rem 0 1rem 0; }
+    }
+
+    #header img { max-width: 100%; height: auto; }
+
+    .responsive-text::first-letter {
+      font-size: 1.2em;
+      font-weight: 500;
+      color: #e6b422;
+    }
+
+    /* Footer image styling */
+    footer img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
   </style>
 </head>
@@ -156,21 +131,17 @@
 
 <main class="about-container">
 
-    <div class="lang-switcher">
+  <div class="lang-switcher">
     <span>Select language : &nbsp;</span>
-
     <select id="lang-select" class="lang-select" aria-label="Select language">
       <option value="en">🌐 English</option>
       <option value="hi">🌐 हिन्दी</option>
     </select>
   </div>
 
-  <!-- Google Translate mounts here but stays visually hidden -->
   <div id="google_translate_element" style="display:none;"></div>
-  <!-- main about heading -->
+
   <h1 class="abouttxt">About Us</h1>
-  
-  <!-- About Us text - fully responsive with rich formatting and line-break optimization -->
   <div class="responsive-text">
     <p>"Ashavan is more than just an initiative—it is a movement built on compassion, responsibility, and the belief that every life deserves care and dignity. While animal rescue and rehabilitation remain an important part of our work, Ashavan goes far beyond saving lives on the streets. At its core, Ashavan is dedicated to transforming mindsets—encouraging every individual to learn, practice, and live with compassion and kindness in their daily lives. We believe true change begins within people, and when empathy becomes a habit, it naturally extends to animals, society, and the world around us.</p>
     <p>What makes Ashavan truly unique is its broader vision. Alongside helping injured and abandoned animals, we actively promote awareness about nature, the ecosystem, and the importance of sustainable living. We strive to create a balance where humans and nature coexist with respect and responsibility. Whether it is rescuing an animal in need, inspiring someone to care, or encouraging eco-friendly choices, every action we take is a step toward a more humane and sustainable future.</p>
@@ -178,10 +149,7 @@
     <p>Here, every rescue has a story, every voice matters, and every act of kindness creates a ripple effect. Ashavan is not just about helping animals—it is about building a world where compassion, respect for nature, and sustainable living become a way of life."</p>
   </div>
 
-  <!-- Our Belief Heading -->
   <h1 class="abouttxt" style="margin-top: 1rem;">Our Belief</h1>
-  
-  <!-- Belief text - responsive container with distinct background -->
   <div class="responsive-text belief-text">
     <p>"We believe that every street animal, no matter how small, weak, or unnoticed, deserves love, care, and respect. These animals share our environment and our communities, yet they often struggle silently without a voice to express their pain, hunger, or fear. They rely entirely on human kindness for their survival, safety, and well-being. It is our responsibility as compassionate beings to recognize their needs and respond with empathy and action.</p>
     <p>Our core belief is that compassion towards animals is a reflection of the values of a truly humane society. When we choose to care for the most vulnerable among us, we create a world that is kinder, more understanding, and more connected. By rescuing injured and abandoned animals, providing them with timely medical care, shelter, and nourishment, and promoting adoption over neglect, we aim to transform their lives from suffering to safety and from fear to trust.</p>
@@ -189,187 +157,84 @@
     <p>Together, with the support and involvement of our community, we can build a future where street animals are no longer ignored or mistreated, but are protected, valued, and given the opportunity to live healthy and dignified lives. By standing together, we can make a meaningful and lasting difference, ensuring that every street animal experiences the care and respect they truly deserve."</p>
   </div>
 
-  <!-- removed the dummy white text paragraph (original had a placeholder) to keep content clean -->
-  <!-- subtle spacing for footer harmony -->
-  <!-- <div class="bottom-placeholder"></div> -->
 </main>
 
-<div id="footer"></div>
+<!-- STATIC FOOTER -->
+<footer>
+  <img src="../assets/images/footer.png" alt="Footer Image">
+</footer>
 
 <script>
-  // Helper to ensure dynamic header/footer loads without breaking responsive behavior
-  // Also re-attach navigation functionality after dynamic injection
-  
   function initNavbar() {
-    // Wait a tiny moment for DOM to settle after header injection
     const toggle = document.querySelector('.nav-toggle');
     const sidenav = document.getElementById('mySidenav');
     const closeBtn = document.querySelector('.closebtn');
     const overlay = document.querySelector('.nav-overlay');
-    
-    // If elements are missing, navbar might not be present in this page's header; do nothing.
-    if (!toggle || !sidenav || !closeBtn || !overlay) {
-      // some pages might not have the exact nav structure, but Ashavan includes it.
-      // We can silently ignore to avoid errors.
-      return;
-    }
-    
+
+    if (!toggle || !sidenav || !closeBtn || !overlay) return;
+
     function openNav() {
       sidenav.classList.add('open');
-      if(overlay) overlay.classList.add('visible');
-      if(toggle) toggle.setAttribute('aria-expanded', 'true');
+      overlay.classList.add('visible');
+      toggle.setAttribute('aria-expanded', 'true');
     }
-    
+
     function closeNav() {
       sidenav.classList.remove('open');
-      if(overlay) overlay.classList.remove('visible');
-      if(toggle) toggle.setAttribute('aria-expanded', 'false');
+      overlay.classList.remove('visible');
+      toggle.setAttribute('aria-expanded', 'false');
     }
-    
-    // Remove any duplicate listeners before attaching to avoid multiple bindings
+
     toggle.removeEventListener('click', openNav);
     closeBtn.removeEventListener('click', closeNav);
-    if(overlay) overlay.removeEventListener('click', closeNav);
-    
+    overlay.removeEventListener('click', closeNav);
+
     toggle.addEventListener('click', openNav);
     closeBtn.addEventListener('click', closeNav);
-    if(overlay) overlay.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
   }
-  
-  // Load header and footer with robust error handling
+
   function loadComponent(elementId, filePath, callback = null) {
     fetch(filePath)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status} for ${filePath}`);
-        }
-        return response.text();
-      })
+      .then(response => { if(!response.ok) throw new Error(`HTTP ${response.status}`); return response.text(); })
       .then(html => {
-        const element = document.getElementById(elementId);
-        if (element) {
-          element.innerHTML = html;
-          if (callback && typeof callback === 'function') callback();
-        }
+        const el = document.getElementById(elementId);
+        if (el) { el.innerHTML = html; if(callback) callback(); }
       })
       .catch(err => {
         console.warn(`Could not load ${filePath}:`, err);
-        if (elementId === 'header') {
-          // optional fallback: show minimal header message if missing
+        if(elementId === 'header') {
           const headerContainer = document.getElementById('header');
           if(headerContainer) headerContainer.innerHTML = '<div style="background:#2c5f2d; color:white; padding:1rem; text-align:center;">Ashavan ❤️</div>';
         }
-        if (elementId === 'footer') {
-          const footerContainer = document.getElementById('footer');
-          if(footerContainer) footerContainer.innerHTML = '<div style="background:#1e2a2f; color:#ccc; text-align:center; padding:1.5rem;">© Ashavan — Compassion in action</div>';
-        }
       });
   }
-  
-  // Load header first, then initialize navbar after header injection.
-  // Load footer concurrently but after header maybe but independent.
-  loadComponent('header', 'header.html', () => {
-    // After header HTML is inserted, re-run initNavbar to attach event handlers
-    initNavbar();
-  });
-  
-  loadComponent('footer', 'footer.html');
-  
-  // Also guard: in case header.html already contains inline scripts, we ensure navbar is ready.
-  // Additionally, if window already loaded and header is present but no fetch? but we already fetch.
-  // For pages that may have the same local navigation elements pre-existing (though we fetch)
+
+  loadComponent('header', 'header.html', initNavbar);
+
   window.addEventListener('load', function() {
-    // if header loaded asynchronously, navbar might have been initialized already.
-    // but sometimes if header loading is delayed, we call again
-    if (document.querySelector('.nav-toggle')) {
-      initNavbar();
-    }
+    if(document.querySelector('.nav-toggle')) initNavbar();
   });
-</script>
 
-<!-- additional responsive fallback: ensure any remaining fixed-width elements become flexible -->
-<style>
-  /* enforce that any legacy external styles from about_styles.css or styles.css do not break responsiveness */
-  @media (max-width: 768px) {
-    body, .about-container, .responsive-text {
-      word-break: break-word;
-      overflow-wrap: break-word;
-    }
-    h1, h2, h3 {
-      word-break: break-word;
-    }
-  }
-  /* improve readability for very small devices */
-  @media (max-width: 480px) {
-    .responsive-text {
-      font-size: 1rem;
-      padding: 1rem;
-    }
-    .abouttxt {
-      margin: 1.8rem 0 1rem 0;
-    }
-  }
-  /* ensure that any images or icons from header/footer remain scalable */
-  #header img, #footer img {
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* smooth container expansion */
-  .about-container {
-    width: 100%;
-  }
-  
-  /* optional decorative element for better flow */
-  .responsive-text::first-letter {
-    font-size: 1.2em;
-    font-weight: 500;
-    color: #e6b422;
-  }
-</style>
-
-
-<!-- 1. Load Google Translate silently (no auto-display) -->
-<script type="text/javascript">
   function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'en,hi',
-      autoDisplay: false
-    }, 'google_translate_element');
+    new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,hi', autoDisplay: false }, 'google_translate_element');
   }
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<!-- 2. Dropdown triggers Google Translate's hidden combo -->
-
-<script>
   var lastLang = 'en';
-
-function triggerGoogleTranslate(lang) {
-  const gtCombo = document.querySelector('.goog-te-combo');
-
-  if (!gtCombo) return;
-
-  if (lang === 'en') {
-    gtCombo.value = 'en';
-    gtCombo.dispatchEvent(new Event('change'));
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
-  } else {
+  function triggerGoogleTranslate(lang) {
+    const gtCombo = document.querySelector('.goog-te-combo');
+    if (!gtCombo) return;
     gtCombo.value = lang;
     gtCombo.dispatchEvent(new Event('change'));
+    if(lang === 'en') setTimeout(()=>window.location.reload(),500);
   }
-}
-
 
   document.getElementById('lang-select').addEventListener('change', function () {
     triggerGoogleTranslate(this.value);
   });
-
 </script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
