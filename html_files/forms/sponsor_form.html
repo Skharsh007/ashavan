@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ashavan - Volunteer Form</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/about_styles.css">
+  <style>
+    /* Additional inline styles for layout consistency */
+    .volunteer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-iframe-wrapper {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      min-height: 600px;
+      margin: 30px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-iframe-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .page-title {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 16px;
+      font-family: 'PT Serif', serif;
+      font-weight: 700;
+    }
+
+    .form-description {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    /* Spacer for footer visibility */
+    .content-spacer {
+      margin-bottom: 150px;
+      visibility: hidden;
+      height: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .form-iframe-wrapper {
+        height: 70vh;
+        min-height: 500px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Header -->
+  <div id="header"></div>
+
+  <main class="volunteer-container">
+    <h1 class="page-title abouttxt">Sponsorship Form</h1>
+    <p class="form-description">Please fill out this form to Sponsor. We appreciate your support!</p>
+
+    <!-- Google Form Embed -->
+    <div class="form-iframe-wrapper">
+      <iframe 
+        src="https://docs.google.com/forms/d/e/1FAIpQLSeaxZZpHIuOfvfs1AD0zY-Vf99Nk3yIOAPWTUEvqs-77-CyIA/viewform?usp=publish-editor"
+        title="Ashavan Sponsorship Form"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- Invisible spacer for consistent footer spacing -->
+    <div class="content-spacer"></div>
+  </main>
+
+  <!-- Dynamic Footer -->
+  <div id="footer"></div>
+
+  <script>
+    // -------------------------------
+    // 1. Load Header and Footer dynamically
+    // -------------------------------
+    function loadHeader() {
+      return fetch('header.html')
+        .then(res => {
+          if (!res.ok) throw new Error('Header failed to load');
+          return res.text();
+        })
+        .then(data => {
+          document.getElementById('header').innerHTML = data;
+          // After header is injected, initialize navbar functionality
+          initNavbar();
+        })
+        .catch(err => console.error('Error loading header:', err));
+    }
+
+    function loadFooter() {
+      fetch('footer.html')
+        .then(res => {
+          if (!res.ok) throw new Error('Footer failed to load');
+          return res.text();
+        })
+        .then(data => {
+          document.getElementById('footer').innerHTML = data;
+        })
+        .catch(err => console.error('Error loading footer:', err));
+    }
+
+    // -------------------------------
+    // 2. Navbar initialization (mobile toggle, side navigation)
+    // -------------------------------
+    function initNavbar() {
+      // Get elements after header is injected
+      const toggle = document.querySelector('.nav-toggle');
+      const sidenav = document.getElementById('mySidenav');
+      const closeBtn = document.querySelector('.closebtn');
+      const overlay = document.querySelector('.nav-overlay');
+
+      // Guard: if any essential navbar element is missing, exit silently
+      if (!toggle || !sidenav || !closeBtn || !overlay) {
+        console.warn('Navbar elements not found, skipping initNavbar');
+        return;
+      }
+
+      function openNav() {
+        sidenav.classList.add('open');
+        overlay.classList.add('visible');
+        toggle.setAttribute('aria-expanded', 'true');
+        // Optional: disable body scroll when menu open
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeNav() {
+        sidenav.classList.remove('open');
+        overlay.classList.remove('visible');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      // Remove existing listeners to avoid duplicates (if initNavbar called multiple times)
+      toggle.removeEventListener('click', openNav);
+      closeBtn.removeEventListener('click', closeNav);
+      overlay.removeEventListener('click', closeNav);
+
+      // Attach fresh event listeners
+      toggle.addEventListener('click', openNav);
+      closeBtn.addEventListener('click', closeNav);
+      overlay.addEventListener('click', closeNav);
+    }
+
+    // -------------------------------
+    // 3. Execute loading on page load
+    // -------------------------------
+    document.addEventListener('DOMContentLoaded', function() {
+      loadHeader();
+      loadFooter();
+    });
+  </script>
+</body>
+</html>
