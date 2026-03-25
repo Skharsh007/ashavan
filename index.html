@@ -217,25 +217,25 @@
     <p class="titlex">Our Progress</p>
     <div class="progress-container">
       <div class="progress-card">
-        <img class="progress-pic" src="image1.png" alt="Saved animals" />
+        <img class="progress-pic" src="assets/images/image1.png" alt="Saved animals" />
         <div class="progress-text">
           <span class="progress-value" data-target="10000  ">0</span><span class="progress-suffix">+</span><br>  saved animals
         </div>
       </div>
       <div class="progress-card">
-        <img class="progress-pic" src="image2.png" alt="Dogs adopted" />
+        <img class="progress-pic" src="assets/images/image2.png" alt="Dogs adopted" />
         <div class="progress-text">
           <span class="progress-value" data-target="180">0</span><span class="progress-suffix">+</span><br>dogs adopted, 310 released
         </div>
       </div>
       <div class="progress-card">
-        <img class="progress-pic" src="image3.png" alt="Food drives" />
+        <img class="progress-pic" src="assets/images/image3.png" alt="Food drives" />
         <div class="progress-text">
           <span class="progress-value" data-target="200">0</span><span class="progress-suffix">+</span><br>Food Drives
         </div>
       </div>
       <div class="progress-card">
-        <img class="progress-pic" src="image4.png" alt="Vaccinated street dogs" />
+        <img class="progress-pic" src="assets/images/image4.png" alt="Vaccinated street dogs" />
         <div class="progress-text">
           <span class="progress-value" data-target="100">0</span><span class="progress-suffix">+</span><br>street dogs rabies vaccinated
         </div>
@@ -290,13 +290,13 @@ function triggerGoogleTranslate(lang) {
 </script>
 
 <script>
-  fetch('html_files/footer.html')
+  fetch('pages/footer.html')
     .then(res => res.text())
     .then(data => { document.getElementById('footer').innerHTML = data; });
 </script>
 
 <script>
-  fetch('html_files/header.html')
+  fetch('pages/header.html')
     .then(res => res.text())
     .then(data => {
       document.getElementById('header').innerHTML = data;
