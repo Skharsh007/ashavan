@@ -220,6 +220,17 @@
 
 <!-- ========== SPONSOR SECTION ========== -->
 <main class="page-content">
+   <div class="lang-switcher">
+    <span>Select language : &nbsp;</span>
+
+    <select id="lang-select" class="lang-select" aria-label="Select language">
+      <option value="en">🌐 English</option>
+      <option value="hi">🌐 हिन्दी</option>
+    </select>
+  </div>
+
+  <!-- Google Translate mounts here but stays visually hidden -->
+  <div id="google_translate_element" style="display:none;"></div>
   <h1 class="abouttxt">Sponsor</h1>
   <div class="responsive-card">
     <div class="responsive-text">
@@ -450,5 +461,49 @@
     color: #e6b422;
   }
 </style>
+
+
+
+<!-- 1. Load Google Translate silently (no auto-display) -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,hi',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<!-- 2. Dropdown triggers Google Translate's hidden combo -->
+
+<script>
+  var lastLang = 'en';
+
+function triggerGoogleTranslate(lang) {
+  const gtCombo = document.querySelector('.goog-te-combo');
+
+  if (!gtCombo) return;
+
+  if (lang === 'en') {
+    gtCombo.value = 'en';
+    gtCombo.dispatchEvent(new Event('change'));
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  } else {
+    gtCombo.value = lang;
+    gtCombo.dispatchEvent(new Event('change'));
+  }
+}
+
+
+  document.getElementById('lang-select').addEventListener('change', function () {
+    triggerGoogleTranslate(this.value);
+  });
+
+</script>
 </body>
 </html>
