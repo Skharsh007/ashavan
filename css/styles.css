@@ -241,9 +241,9 @@ a {
 
 /* Main content */
 .page-content {
-  padding: 20px 20px;
+  /* padding: 20px 20px; */
   max-width: 100%;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   color: #1c1c1c;
 }
 
@@ -295,7 +295,7 @@ a {
 
     /* progress section */
     .progress {
-      margin: 4rem 0 2rem;
+      margin: 0rem 0 0rem;
     }
 
 /* .info-card--visible {
@@ -326,7 +326,7 @@ a {
 
 /* Progress section */
 .progress {
-  padding: 48px 0;
+  padding: 20px 0;
 }
 
 .progress h2 {
@@ -347,7 +347,7 @@ a {
   justify-content: center;
   gap: 20px;
   /* overflow-x: auto; allow horizontal scrolling on smaller screens */
-  padding: 0 14px;
+  /* padding: 0 14px; */
   /* -webkit-overflow-scrolling: touch; */
 }
 
